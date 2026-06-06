@@ -37,7 +37,7 @@ export default function Header() {
   return (
     <header
       className={`sticky top-0 z-40 transition-[background,backdrop-filter,border-color] duration-300 ${
-        scrolled
+        scrolled || open
           ? 'bg-[color:var(--color-paper)]/90 backdrop-blur-md border-b border-[var(--color-rule)]'
           : 'bg-transparent border-b border-transparent'
       }`}
@@ -77,7 +77,7 @@ export default function Header() {
           aria-label="Toggle menu"
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="hidden max-md:inline-grid place-items-center w-11 h-11 border border-[var(--color-ink)]"
+          className="hidden max-md:inline-grid place-items-center w-11 h-11 border border-[var(--color-ink)] bg-[var(--color-paper)]"
         >
           <span
             className={`block w-5 h-px bg-[var(--color-ink)] transition-transform duration-300 ${open ? 'translate-y-[3px] rotate-45' : '-translate-y-1'}`}

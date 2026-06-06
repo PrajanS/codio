@@ -40,7 +40,7 @@ export default function HomePage() {
           <div className="col-span-12">
             <WordReveal
               as="h1"
-              className="font-display leading-[0.92] tracking-[-0.04em] text-[clamp(3.4rem,1rem+10vw,11.5rem)] mt-12"
+              className="font-display leading-[0.92] tracking-[-0.04em] text-[clamp(3rem,0.6rem+10vw,11.5rem)] mt-12 max-md:mt-4"
               italic={[3, 4, 5]}
               signal={[4]}
             >
@@ -75,6 +75,11 @@ export default function HomePage() {
                 Every message is read by a founder · we reply within one working day
               </div>
             </Reveal>
+          </div>
+
+          <div className="col-span-12 mt-12 max-md:mt-6 flex items-center gap-3">
+            <span className="scroll-cue" aria-hidden="true" />
+            <span className="mono ink-faint">scroll to explore</span>
           </div>
         </div>
       </section>

@@ -653,6 +653,31 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
 }
 .u-link:hover::after { transform: scaleX(0); transform-origin: 100% 50%; }
 
+/* Scroll cue — thin rail with a falling signal tick */
+.scroll-cue {
+  position: relative;
+  display: inline-block;
+  width: 1px;
+  height: 42px;
+  background: var(--color-rule-strong);
+  overflow: hidden;
+  flex: none;
+}
+.scroll-cue::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 1px;
+  height: 45%;
+  background: var(--color-signal-deep);
+  transform: translateY(-110%);
+  animation: scroll-fall 1.9s var(--ease-out-quint) infinite;
+}
+@keyframes scroll-fall {
+  0%        { transform: translateY(-110%); }
+  55%, 100% { transform: translateY(240%); }
+}
+
 /* Image slot — when no image, use kinetic SVG fallback */
 .slot {
   position: relative;
