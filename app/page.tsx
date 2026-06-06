@@ -72,7 +72,7 @@ export default function HomePage() {
                 <em className="italic signal">Three project slots for 2026.</em> One is taken, two are open. After the first call, we send a short one-page plan. No long sales process.
               </p>
               <div className="mt-8 hairline pt-5 mono ink-mute">
-                Every message is read by a founder · we reply within one working day
+                Every message is read by the team · we reply within one working day
               </div>
             </Reveal>
           </div>
@@ -204,7 +204,7 @@ export default function HomePage() {
           <div className="col-span-12 md:col-span-5 md:col-start-8">
             <Reveal>
               <p className="text-base ink-mute mb-6 leading-relaxed">
-                Most software does not fail on launch day. It fails three months later, when real users arrive and the early version starts to break. We plan for that month. Founders write the code, so there is no junior team learning on your project, and no agency passing your work to another agency.
+                Most software does not fail on launch day. It fails three months later, when real users arrive and the early version starts to break. We plan for that month. We write the code ourselves, so there is no junior team learning on your project, and no agency passing your work to another agency.
               </p>
               <p className="text-base ink-mute leading-relaxed">
                 Every Friday you get a new release and a short written update. Every Monday we join your stand-up. That is the full rhythm.
@@ -248,32 +248,6 @@ export default function HomePage() {
             </Reveal>
           ))}
         </div>
-      </section>
-
-      {/* ============ FOUNDERS' NOTE ============ */}
-      <section className="frame py-28 max-md:py-16">
-        <div className="grid grid-cols-12 gap-6 items-end hairline-b pb-4 mb-12">
-          <div className="col-span-12 md:col-span-8 flex items-baseline gap-4">
-            <span className="index">From the founders</span>
-            <span className="mono ink-faint">/ 05</span>
-          </div>
-        </div>
-
-        <Reveal>
-          <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-12 md:col-span-10 md:col-start-2">
-              <p className="font-display text-[clamp(1.8rem,1.2rem+2vw,3.4rem)] leading-[1.08] tracking-[-0.025em]" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
-                <span className="signal font-display italic" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>&ldquo;</span>
-                We spent years building software inside other companies. Codio is the kind of studio we always wanted to hire — small, senior, and honest about scope. We do not have past projects to show yet. That is on purpose. The first three clients who trust us get our full attention and a clear, fair price.
-                <span className="signal font-display italic" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>&rdquo;</span>
-              </p>
-              <footer className="mt-8 hairline pt-5 flex flex-wrap items-baseline gap-3">
-                <cite className="not-italic font-display text-xl">The founders</cite>
-                <span className="mono ink-mute">Codio Studio · 2026</span>
-              </footer>
-            </div>
-          </div>
-        </Reveal>
       </section>
 
       {/* ============ CTA — bold ink slab ============ */}

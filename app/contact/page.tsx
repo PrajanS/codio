@@ -23,7 +23,7 @@ const FAQS = [
   },
   {
     q: 'You have no past projects to show. Why should I trust you?',
-    a: "Because the price is honest about that. Our first three projects come with full founder attention, fixed scope, and a special price that will not be offered again. The founders have shipped software at scale before — just under a new studio name.",
+    a: "Because the price is honest about that. Our first three projects come with full senior attention, fixed scope, and a special price that will not be offered again. The team has shipped software at scale before — just under a new studio name.",
   },
   {
     q: 'How much does a project cost?',
@@ -98,7 +98,7 @@ export default function ContactPage() {
               </ul>
 
               <div className="mt-12 hairline pt-6 mono ink-mute leading-relaxed">
-                Your message goes straight to a founder. We reply within one working day, every time.
+                Your message goes straight to the team. We reply within one working day, every time.
               </div>
             </Reveal>
           </aside>

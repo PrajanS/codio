@@ -17,6 +17,7 @@ type Project = {
   stack: string;
   repo: string;
   kind: 'app' | 'web';
+  cover?: string;
   state?: string;
 };
 
@@ -28,6 +29,7 @@ const CLIENT_PROJECTS: Project[] = [
     stack: 'Flutter · Firebase · Dart',
     repo: 'https://github.com/Raghu1700/hitagyana_clg_finder',
     kind: 'app',
+    cover: '/hitagyana-logo.svg',
   },
   {
     title: 'Hitagyana Book Exchange',
@@ -36,6 +38,7 @@ const CLIENT_PROJECTS: Project[] = [
     stack: 'Flutter · Firebase · Dart',
     repo: 'https://github.com/Raghu1700/Stusents_book_exchange',
     kind: 'app',
+    cover: '/hitagyana-logo.svg',
   },
 ];
 
@@ -74,15 +77,27 @@ function ProjectCard({
       delay={delay}
     >
       <article className="group">
-        <div className="slot aspect-[4/3] mb-6 relative grid place-items-center overflow-hidden">
+        <div
+          className="slot aspect-[4/3] mb-6 relative grid place-items-center overflow-hidden"
+          style={p.cover ? { background: '#ffffff' } : undefined}
+        >
           <span className="slot-tag">{p.discipline}</span>
           <span className="absolute right-3 top-3 z-[2] inline-flex items-center gap-1.5 mono ink border border-[var(--color-rule)] bg-[var(--color-paper)] px-2.5 py-1">
             <Icon size={13} />
             {p.kind === 'app' ? 'App' : 'Web'}
           </span>
-          <span className="ink-faint group-hover:signal transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110">
-            <Icon size={96} strokeWidth={1} />
-          </span>
+          {p.cover ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={p.cover}
+              alt={`${p.title} — Hitagyana`}
+              className="w-[68%] max-h-[54%] object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+            />
+          ) : (
+            <span className="ink-faint group-hover:signal transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110">
+              <Icon size={96} strokeWidth={1} />
+            </span>
+          )}
         </div>
 
         <div className="flex items-baseline justify-between mb-3">
