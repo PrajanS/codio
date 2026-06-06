@@ -678,6 +678,55 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
   55%, 100% { transform: translateY(240%); }
 }
 
+/* Budget range — editorial slider, signal-green thumb */
+.budget-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  margin: 0.4rem 0;
+  background: var(--color-rule-strong);
+  border-radius: 0;
+  outline: none;
+  cursor: pointer;
+}
+.budget-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--color-signal);
+  border: 1.5px solid var(--color-ink);
+  transition: transform 220ms var(--ease-out-expo), box-shadow 220ms var(--ease-out-expo);
+}
+.budget-range::-webkit-slider-thumb:hover { transform: scale(1.12); }
+.budget-range:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+  box-shadow: 0 0 0 6px oklch(0.82 0.205 135 / 0.22);
+}
+.budget-range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--color-signal);
+  border: 1.5px solid var(--color-ink);
+  cursor: pointer;
+}
+.budget-range::-moz-range-track {
+  height: 2px;
+  background: var(--color-rule-strong);
+}
+.budget-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px oklch(0.68 0.195 138 / 0.4);
+}
+/* Bigger touch target + taller track on touch devices */
+@media (pointer: coarse) {
+  .budget-range { height: 4px; }
+  .budget-range::-webkit-slider-thumb { width: 28px; height: 28px; }
+  .budget-range::-moz-range-thumb { width: 28px; height: 28px; }
+}
+
 /* Image slot — when no image, use kinetic SVG fallback */
 .slot {
   position: relative;

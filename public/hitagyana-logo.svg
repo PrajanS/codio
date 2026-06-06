@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 250" role="img" aria-label="HitaGyana">
+  <g font-family="'Geist', 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif" font-weight="800" font-size="112" letter-spacing="-3">
+    <text x="362" y="165" text-anchor="end" fill="#12325a">Hita</text>
+    <text x="356" y="165" text-anchor="start" fill="#1f9ce6">Gyana</text>
+  </g>
+  <!-- graduation cap sitting on the G -->
+  <g fill="#1f9ce6">
+    <path d="M340 80 L398 58 L456 80 L398 102 Z" />
+    <path d="M362 91 L362 109 Q398 125 434 109 L434 91 L398 105 Z" />
+    <circle cx="398" cy="80" r="6.5" fill="#12325a" />
+    <path d="M456 80 L456 110" stroke="#1f9ce6" stroke-width="3.5" fill="none" />
+    <circle cx="456" cy="115" r="5.5" />
+  </g>
+</svg>

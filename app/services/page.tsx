@@ -145,7 +145,7 @@ export default function ServicesPage() {
           <div className="col-span-12 md:col-span-6 md:col-start-2">
             <Reveal delay={240}>
               <p className="text-lg ink-mute leading-relaxed">
-                Four areas, all built by the founders before Codio existed. Each one runs from start to finish — plan, design, build, support. Most projects use two or three of them, and every project starts with a 30-minute call.
+                Four areas, all built by our team before Codio existed. Each one runs from start to finish — plan, design, build, support. Most projects use two or three of them, and every project starts with a 30-minute call.
               </p>
             </Reveal>
           </div>

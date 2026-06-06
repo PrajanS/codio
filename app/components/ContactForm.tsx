@@ -5,14 +5,22 @@ import { processContactRequest } from '../contact/handler';
 
 type Status = { kind: 'idle' | 'success' | 'error'; message?: string };
 
-const BUDGETS = ['Under ₹20L', '₹20L — ₹60L', '₹60L — ₹2Cr', '₹2Cr +', 'Not sure yet'];
 const TIMING = ['As soon as possible', 'Within 30 days', '1 — 3 months', '3 — 6 months', '6 months or later'];
+
+const BUDGET_MIN = 10000; // ₹10k
+const BUDGET_MAX = 200000; // ₹2L
+const BUDGET_STEP = 10000; // multiples of ₹10k
+const formatINR = (n: number) => `₹${n.toLocaleString('en-IN')}`;
+const formatL = (n: number) => {
+  const l = n / 100000;
+  return `${Number.isInteger(l) ? l : l.toFixed(1)}L`;
+};
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
   const [invalid, setInvalid] = useState<Record<string, boolean>>({});
   const [sending, setSending] = useState(false);
-  const [budget, setBudget] = useState('');
+  const [budget, setBudget] = useState(50000);
   const [timing, setTiming] = useState('');
 
   const validate = (form: HTMLFormElement) => {
@@ -55,7 +63,7 @@ export default function ContactForm() {
       if (result.success) {
         setStatus({ kind: 'success', message: result.message });
         form.reset();
-        setBudget('');
+        setBudget(50000);
         setTiming('');
       } else {
         setStatus({ kind: 'error', message: result.message });
@@ -79,29 +87,38 @@ export default function ContactForm() {
 
       <Line name="company" label="03 — company (optional)" placeholder="Your company" />
 
-      {/* Budget pills */}
+      {/* Budget — scrolling scale, ₹10k → ₹2L in steps of ₹10k */}
       <fieldset className="field-line hairline-b">
-        <label>04 — budget</label>
-        <input type="hidden" name="budget" value={budget} />
-        <div className="flex flex-wrap gap-2 pt-2">
-          {BUDGETS.map((b) => {
-            const active = budget === b;
-            return (
-              <button
-                key={b}
-                type="button"
-                onClick={() => setBudget(active ? '' : b)}
-                className={`px-4 py-1.5 mono border transition-colors ${
-                  active
-                    ? 'bg-ink border-[var(--color-ink)] text-[var(--color-paper)]'
-                    : 'bg-transparent border-[var(--color-rule-strong)] ink-mute hover:ink hover:border-[var(--color-ink)]'
-                }`}
-              >
-                {b}
-              </button>
-            );
-          })}
+        <label htmlFor="budget-range">04 — budget</label>
+        <input type="hidden" name="budget" value={`${formatINR(budget)} (${formatL(budget)})`} />
+        <div className="flex items-baseline justify-between pt-2 mb-3">
+          <span
+            className="font-display text-3xl tracking-tight ink"
+            style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}
+          >
+            {formatINR(budget)}
+          </span>
+          <span className="mono signal">{formatL(budget)}</span>
         </div>
+        <input
+          id="budget-range"
+          type="range"
+          min={BUDGET_MIN}
+          max={BUDGET_MAX}
+          step={BUDGET_STEP}
+          value={budget}
+          onChange={(e) => setBudget(Number(e.target.value))}
+          aria-valuetext={formatINR(budget)}
+          className="budget-range w-full"
+        />
+        <div className="flex justify-between mono ink-faint mt-2">
+          <span>{formatINR(BUDGET_MIN)}</span>
+          <span>{formatINR(BUDGET_MAX)}</span>
+        </div>
+        <p className="mt-3 flex items-start gap-2 bg-paper-2 border border-[var(--color-rule)] px-3 py-2 mono ink-mute leading-relaxed">
+          <span aria-hidden="true" className="signal shrink-0">↔</span>
+          <span>Drag the slider to set your budget — in steps of ₹10,000</span>
+        </p>
       </fieldset>
 
       {/* Timing pills */}
