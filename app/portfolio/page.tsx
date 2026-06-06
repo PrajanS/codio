@@ -2,11 +2,12 @@ import type { Metadata } from 'next';
 import Reveal from '../components/Reveal';
 import WordReveal from '../components/WordReveal';
 import MagneticButton from '../components/MagneticButton';
+import { IconMobile, IconGlobe } from '../components/Icon';
 
 export const metadata: Metadata = {
   title: 'Work — Shipped projects',
   description:
-    'Selected work from Codio — client products built for Hitagyana, plus other shipped apps across mobile, IoT, and the web.',
+    'Selected work from Codio — client products built for Hitagyana, plus other shipped apps across mobile and the web.',
 };
 
 type Project = {
@@ -15,6 +16,7 @@ type Project = {
   body: string;
   stack: string;
   repo: string;
+  kind: 'app' | 'web';
   state?: string;
 };
 
@@ -25,6 +27,7 @@ const CLIENT_PROJECTS: Project[] = [
     body: 'A college discovery app built for Hitagyana — students search, filter, and compare colleges, backed by cloud data and a shipped Android release.',
     stack: 'Flutter · Firebase · Dart',
     repo: 'https://github.com/Raghu1700/hitagyana_clg_finder',
+    kind: 'app',
   },
   {
     title: 'Hitagyana Book Exchange',
@@ -32,30 +35,18 @@ const CLIENT_PROJECTS: Project[] = [
     body: 'A campus book marketplace built for Hitagyana — students buy and sell textbooks with Firebase auth, listings, a bidding system, favorites, and profiles.',
     stack: 'Flutter · Firebase · Dart',
     repo: 'https://github.com/Raghu1700/Stusents_book_exchange',
+    kind: 'app',
   },
 ];
 
 const OTHER_PROJECTS: Project[] = [
-  {
-    title: 'Field Surveillance Robot',
-    discipline: 'IoT · Robotics',
-    body: 'A control app for a field surveillance robot — live camera feed, directional and crane controls, and real-time temperature and gas monitoring over Firebase.',
-    stack: 'Flutter · Firebase · C++',
-    repo: 'https://github.com/Raghu1700/field_surveillance_robot',
-  },
-  {
-    title: 'Health & Sports Tracker',
-    discipline: 'Mobile · Wearables',
-    body: 'A wearable health-tracking app with real-time sensor dashboards — heart rate, oxygen, temperature — plus performance analytics and trend charts.',
-    stack: 'Flutter · Dart',
-    repo: 'https://github.com/Raghu1700/sports_tracker_app',
-  },
   {
     title: 'FitCore',
     discipline: 'Web · Gym management',
     body: 'A full-stack gym management dashboard — member management, workout and diet plans, attendance, payments, and role-based access with audit trails.',
     stack: 'React · TypeScript · Node · PostgreSQL',
     repo: 'https://github.com/Sanjaykumar-2005/FitCore',
+    kind: 'web',
   },
   {
     title: 'FanikClean',
@@ -63,38 +54,42 @@ const OTHER_PROJECTS: Project[] = [
     body: 'A workforce and billing system for a cleaning-services business — worker attendance, payroll, leave, client sites, invoicing, and financial reporting, on a custom PHP MVC framework.',
     stack: 'PHP · MVC · MySQL',
     repo: 'https://github.com/Sanjaykumar-2005/Fanikclean_development',
+    kind: 'web',
   },
 ];
 
 function ProjectCard({
-  n,
   p,
   delay,
   offset,
 }: {
-  n: string;
   p: Project;
   delay: number;
   offset?: boolean;
 }) {
+  const Icon = p.kind === 'app' ? IconMobile : IconGlobe;
   return (
     <Reveal
       className={`col-span-12 md:col-span-6 ${offset ? 'md:translate-y-16' : ''}`}
       delay={delay}
     >
       <article className="group">
-        <div className="slot aspect-[4/3] mb-6 grid place-items-center">
+        <div className="slot aspect-[4/3] mb-6 relative grid place-items-center overflow-hidden">
           <span className="slot-tag">{p.discipline}</span>
-          <span
-            className="font-display text-[8rem] max-md:text-[6rem] leading-none tracking-[-0.04em] ink-faint group-hover:signal transition-colors duration-300"
-            style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40', fontStyle: 'italic' }}
-          >
-            {n}
+          <span className="absolute right-3 top-3 z-[2] inline-flex items-center gap-1.5 mono ink border border-[var(--color-rule)] bg-[var(--color-paper)] px-2.5 py-1">
+            <Icon size={13} />
+            {p.kind === 'app' ? 'App' : 'Web'}
+          </span>
+          <span className="ink-faint group-hover:signal transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110">
+            <Icon size={96} strokeWidth={1} />
           </span>
         </div>
 
         <div className="flex items-baseline justify-between mb-3">
-          <span className="mono ink-faint">{n} · shipped</span>
+          <span className="mono ink-faint inline-flex items-center gap-1.5">
+            <Icon size={12} />
+            {p.kind === 'app' ? 'Mobile app' : 'Web app'}
+          </span>
           <span className="mono signal">{p.state ?? 'Live'}</span>
         </div>
 
@@ -147,7 +142,7 @@ export default function PortfolioPage() {
           <div className="col-span-12 md:col-span-7 md:col-start-2">
             <Reveal delay={240}>
               <p className="text-lg ink-mute leading-relaxed">
-                Real products, built and released. Below is client work we delivered for Hitagyana, followed by other apps we have shipped across mobile, IoT, and the web.
+                Real products, built and released. Below is client work we delivered for Hitagyana, followed by other apps we have shipped across mobile and the web. Each card is marked as a mobile app or a web app.
               </p>
             </Reveal>
           </div>
@@ -183,13 +178,7 @@ export default function PortfolioPage() {
 
         <div className="grid grid-cols-12 gap-x-6 gap-y-16">
           {CLIENT_PROJECTS.map((p, i) => (
-            <ProjectCard
-              key={p.repo}
-              n={String(i + 1).padStart(2, '0')}
-              p={p}
-              delay={i * 80}
-              offset={i === 1}
-            />
+            <ProjectCard key={p.repo} p={p} delay={i * 80} offset={i === 1} />
           ))}
         </div>
       </section>
@@ -206,13 +195,7 @@ export default function PortfolioPage() {
 
         <div className="grid grid-cols-12 gap-x-6 gap-y-16">
           {OTHER_PROJECTS.map((p, i) => (
-            <ProjectCard
-              key={p.repo}
-              n={String(i + 1).padStart(2, '0')}
-              p={p}
-              delay={i * 80}
-              offset={i === 1}
-            />
+            <ProjectCard key={p.repo} p={p} delay={i * 80} offset={i === 1} />
           ))}
         </div>
       </section>
