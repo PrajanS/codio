@@ -74,6 +74,8 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -86,6 +88,7 @@ body {
   overflow-x: hidden;
   line-height: 1.55;
   font-feature-settings: "ss01", "ss03", "cv11";
+  text-wrap: pretty;
 }
 
 /* Custom cursor is opt-in — only hide system cursor once the JS cursor mounts */
@@ -135,6 +138,7 @@ h1, h2, h3, h4 {
   line-height: 0.96;
   letter-spacing: -0.035em;
   color: var(--color-ink);
+  text-wrap: balance;
 }
 
 h1 { font-variation-settings: "opsz" 144, "SOFT" 40; }
@@ -691,6 +695,53 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
   outline: 2px solid var(--color-signal-deep);
   outline-offset: 3px;
 }
+
+/* ============================================================
+   Mobile refinement — touch ergonomics, calmer motion, no overflow
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Service slab: the 3-column desktop row is cramped on phones.
+     Stack the tech meta under the title and ease the hover takeover. */
+  .service-slab {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "idx title"
+      "sub  sub";
+    column-gap: 1rem;
+    row-gap: 0.5rem;
+    padding: 1.7rem 0;
+    align-items: baseline;
+  }
+  .service-slab > .slab-idx { grid-area: idx; }
+  .service-slab > .slab-title { grid-area: title; }
+  .service-slab > .mono {
+    grid-area: sub;
+    justify-self: start;
+    margin-top: 0.25rem;
+  }
+  .service-slab:active { background: var(--color-ink); color: var(--color-paper); }
+  .service-slab:active .slab-title { color: var(--color-signal); font-style: italic; }
+
+  /* Touch press feedback for the editorial rows (no hover on touch) */
+  .case-row:active { background: var(--color-paper-2); }
+
+  /* Slightly tighter section heads so meta + index don't crowd */
+  .index { font-size: 0.68rem; letter-spacing: 0.12em; }
+
+  /* Reveal travels a shorter distance on small screens — snappier feel */
+  .reveal { transform: translate3d(0, 12px, 0); transition-duration: 700ms; }
+  .word { transform: translate3d(0, 0.4em, 0); }
+}
+
+/* Touch / coarse pointers: drop the animated paper grain (repaint cost)
+   and keep static texture, and disable marquee hover-pause that can stick. */
+@media (pointer: coarse) {
+  body::after { animation: none; }
+  .marquee:hover .marquee-track { animation-play-state: running; }
+}
+
+/* Never let a wide child force a horizontal scrollbar on small screens */
+html, body { overflow-x: clip; }
 
 /* Print */
 @media print {
