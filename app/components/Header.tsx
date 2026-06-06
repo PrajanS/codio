@@ -98,17 +98,22 @@ export default function Header() {
       >
         <div className="frame pt-12 pb-16 h-full flex flex-col">
           <ul className="list-none p-0 space-y-1 flex-1">
-            {LINKS.map((l) => {
+            {LINKS.map((l, i) => {
               const active = l.href === '/' ? pathname === '/' : pathname.startsWith(l.href);
               return (
                 <li key={l.href} className="hairline-b">
                   <Link
                     href={l.href}
-                    className="flex items-baseline justify-between py-5 group"
+                    className="flex items-baseline justify-between py-5 group transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                    style={{
+                      transitionDelay: open ? `${120 + i * 65}ms` : '0ms',
+                      opacity: open ? 1 : 0,
+                      transform: open ? 'translateX(0)' : 'translateX(18px)',
+                    }}
                   >
                     <span className="mono ink-mute">{l.n}</span>
                     <span
-                      className={`font-display text-4xl leading-none tracking-tight ${active ? 'italic signal' : 'ink'}`}
+                      className={`font-display text-4xl leading-none tracking-tight transition-colors group-active:signal ${active ? 'italic signal' : 'ink'}`}
                       style={{ fontVariationSettings: active ? '"opsz" 144, "SOFT" 100' : '"opsz" 144, "SOFT" 40' }}
                     >
                       {l.label}
@@ -119,7 +124,14 @@ export default function Header() {
             })}
           </ul>
 
-          <div className="pt-8 mt-auto">
+          <div
+            className="pt-8 mt-auto transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            style={{
+              transitionDelay: open ? `${120 + LINKS.length * 65}ms` : '0ms',
+              opacity: open ? 1 : 0,
+              transform: open ? 'translateY(0)' : 'translateY(14px)',
+            }}
+          >
             <span className="live mb-4 block">Open · 2 slots free</span>
             <Link href="/contact" className="btn btn-primary w-full justify-center">Apply for a slot</Link>
           </div>
