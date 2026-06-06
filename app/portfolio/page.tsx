@@ -29,6 +29,34 @@ const COHORT = [
     discipline: 'Cloud · Infrastructure',
     body: 'Looking for a cloud project we can own end to end — migration, infrastructure as code, monitoring, or cost work. Longer embed projects are also welcome.',
   },
+  {
+    n: '04',
+    state: 'Shipped',
+    discipline: 'Mobile · College search',
+    body: 'A college finder app that helps students search and compare colleges, backed by cloud data and a shipped Android release.',
+    repo: 'https://github.com/Raghu1700/hitagyana_clg_finder',
+  },
+  {
+    n: '05',
+    state: 'Shipped',
+    discipline: 'Mobile · Wearables',
+    body: 'A wearable health-tracking app with real-time sensor dashboards — heart rate, oxygen, temperature — plus performance analytics and trend charts.',
+    repo: 'https://github.com/Raghu1700/sports_tracker_app',
+  },
+  {
+    n: '06',
+    state: 'Shipped',
+    discipline: 'IoT · Robotics',
+    body: 'A control app for a field surveillance robot — live camera feed, directional and crane controls, and real-time temperature and gas monitoring over Firebase.',
+    repo: 'https://github.com/Raghu1700/field_surveillance_robot',
+  },
+  {
+    n: '07',
+    state: 'Shipped',
+    discipline: 'Mobile · Marketplace',
+    body: 'A campus marketplace where students buy and sell textbooks — Firebase auth, book listings, a bidding system, favorites, and user profiles.',
+    repo: 'https://github.com/Raghu1700/Stusents_book_exchange',
+  },
 ];
 
 export default function PortfolioPage() {
@@ -74,6 +102,7 @@ export default function PortfolioPage() {
         <div className="grid grid-cols-12 gap-x-6 gap-y-16">
           {COHORT.map((c, i) => {
             const open = c.state === 'Open';
+            const repo = (c as { repo?: string }).repo;
             return (
               <Reveal
                 key={c.n}
@@ -108,6 +137,19 @@ export default function PortfolioPage() {
                       <Link href="/contact" className="u-link mono ink">
                         Ask about this slot ↗
                       </Link>
+                    </div>
+                  )}
+
+                  {repo && (
+                    <div className="hairline pt-5">
+                      <a
+                        href={repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="u-link mono ink"
+                      >
+                        View on GitHub ↗
+                      </a>
                     </div>
                   )}
                 </article>
