@@ -36,10 +36,10 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-[background,backdrop-filter,border-color] duration-300 ${
+      className={`sticky top-0 z-40 border-b transition-[background,backdrop-filter,border-color] duration-300 bg-[var(--color-paper)] border-[var(--color-rule)] ${
         scrolled || open
-          ? 'bg-[color:var(--color-paper)]/90 backdrop-blur-md border-b border-[var(--color-rule)]'
-          : 'bg-transparent border-b border-transparent'
+          ? 'md:bg-[color:var(--color-paper)]/90 md:backdrop-blur-md md:border-[var(--color-rule)]'
+          : 'md:bg-transparent md:backdrop-blur-none md:border-transparent'
       }`}
     >
       <div className="frame flex items-center justify-between py-4">
