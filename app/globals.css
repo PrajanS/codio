@@ -593,13 +593,20 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
 .service-slab {
   position: relative;
   display: grid;
-  grid-template-columns: 80px 1fr auto;
+  grid-template-columns: 80px 32px 1fr auto;
   align-items: center;
   gap: 2rem;
   padding: 2.2rem 0;
   border-bottom: 1px solid var(--color-rule);
   transition: background 480ms var(--ease-out-expo), padding 480ms var(--ease-out-expo);
 }
+.service-slab .slab-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 480ms var(--ease-out-expo);
+}
+.service-slab:hover .slab-icon { color: var(--color-signal); }
 .service-slab .slab-title {
   font-family: var(--font-display);
   font-weight: 540;
@@ -777,16 +784,20 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
   /* Service slab: the 3-column desktop row is cramped on phones.
      Stack the tech meta under the title and ease the hover takeover. */
   .service-slab {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto 1fr;
     grid-template-areas:
-      "idx title"
-      "sub  sub";
-    column-gap: 1rem;
+      "idx icon title"
+      "sub sub  sub";
+    column-gap: 0.9rem;
     row-gap: 0.5rem;
     padding: 1.7rem 0;
     align-items: baseline;
   }
   .service-slab > .slab-idx { grid-area: idx; }
+  .service-slab > .slab-icon {
+    grid-area: icon;
+    align-self: center;
+  }
   .service-slab > .slab-title { grid-area: title; }
   .service-slab > .mono {
     grid-area: sub;

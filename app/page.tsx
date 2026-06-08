@@ -1,15 +1,18 @@
+import type { ComponentType, SVGProps } from 'react';
 import Link from 'next/link';
 import Reveal from './components/Reveal';
 import WordReveal from './components/WordReveal';
 import MagneticButton from './components/MagneticButton';
 import LogoMarquee from './components/LogoMarquee';
 import Marquee from './components/Marquee';
+import { IconGlobe, IconMobile, IconDesign } from './components/Icon';
 
-const SERVICES = [
-  { n: '01', name: 'Web Platforms', sub: 'Next.js · React · TypeScript' },
-  { n: '02', name: 'Mobile Applications', sub: 'React Native · Swift · Kotlin' },
-  { n: '03', name: 'Cloud & Infra', sub: 'AWS · GCP · Terraform · K8s' },
-  { n: '04', name: 'Product Design', sub: 'Discovery · UX · Design Systems' },
+type ServiceIcon = ComponentType<SVGProps<SVGSVGElement> & { size?: number }>;
+
+const SERVICES: { n: string; name: string; sub: string; Icon: ServiceIcon; anchor: string }[] = [
+  { n: '01', name: 'Web Platforms', sub: 'Next.js · React · TypeScript', Icon: IconGlobe, anchor: 'web' },
+  { n: '02', name: 'Mobile Applications', sub: 'Flutter · React Native · Swift', Icon: IconMobile, anchor: 'mobile' },
+  { n: '03', name: 'Product Design', sub: 'Discovery · UX · Design Systems', Icon: IconDesign, anchor: 'design' },
 ];
 
 const PROCESS = [
@@ -22,7 +25,7 @@ const PROCESS = [
 const COHORT = [
   { n: '01', label: 'Reserved', body: 'First seat is taken. The project starts in July.' },
   { n: '02', label: 'Open', body: 'Looking for a web or mobile build with a team that wants senior help from day one.' },
-  { n: '03', label: 'Open', body: 'Looking for a cloud or infrastructure project we can own from start to finish.' },
+  { n: '03', label: 'Open', body: 'Looking for a design-led product engagement we can shape end to end.' },
 ];
 
 export default function HomePage() {
@@ -167,7 +170,7 @@ export default function HomePage() {
             <span className="mono ink-faint">/ 03</span>
           </div>
           <div className="col-span-12 md:col-span-4 md:text-right mono ink-mute">
-            Four areas, one team
+            Three areas, one team
           </div>
         </div>
 
@@ -175,10 +178,13 @@ export default function HomePage() {
           {SERVICES.map((s) => (
             <Link
               key={s.n}
-              href={`/services#${s.name.split(' ')[0].toLowerCase()}`}
+              href={`/services#${s.anchor}`}
               className="service-slab"
             >
               <span className="slab-idx ink-mute">{s.n}</span>
+              <span className="slab-icon ink-mute" aria-hidden="true">
+                <s.Icon size={22} />
+              </span>
               <span className="slab-title">{s.name}</span>
               <span className="mono ink-mute justify-self-end">{s.sub}</span>
             </Link>
