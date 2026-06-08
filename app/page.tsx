@@ -266,7 +266,7 @@ export default function HomePage() {
                   Apply for a slot
                 </MagneticButton>
                 <p className="mono mt-6" style={{ color: 'var(--color-paper-faint)' }}>
-                  hello@codio.studio · reply within 24h
+                  ash@codio.co.in · reply within 24h
                 </p>
               </div>
             </div>
