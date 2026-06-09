@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type ReactNode } from 'react';
 
-type Tag = 'div' | 'section' | 'span' | 'p' | 'article' | 'header' | 'footer';
+type Tag = 'div' | 'section' | 'span' | 'p' | 'article' | 'header' | 'footer' | 'li' | 'ul';
 
 type Props = {
   children: ReactNode;

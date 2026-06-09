@@ -5,7 +5,10 @@ import WordReveal from './components/WordReveal';
 import MagneticButton from './components/MagneticButton';
 import LogoMarquee from './components/LogoMarquee';
 import Marquee from './components/Marquee';
-import { IconGlobe, IconMobile, IconDesign } from './components/Icon';
+import ImpactStrip from './components/ImpactStrip';
+import SelectedWork from './components/SelectedWork';
+import BrandMark from './components/BrandMark';
+import { IconGlobe, IconMobile, IconDesign, IconArrow } from './components/Icon';
 
 type ServiceIcon = ComponentType<SVGProps<SVGSVGElement> & { size?: number }>;
 
@@ -26,6 +29,23 @@ const COHORT = [
   { n: '01', label: 'Reserved', body: 'First seat is taken. The project starts in July.' },
   { n: '02', label: 'Open', body: 'Looking for a web or mobile build with a team that wants senior help from day one.' },
   { n: '03', label: 'Open', body: 'Looking for a design-led product engagement we can shape end to end.' },
+];
+
+const FOUNDERS = [
+  {
+    initials: 'EN',
+    title: 'Engineering',
+    role: 'Backend · Cloud · Platform',
+    bio: 'Builds backends, cloud systems, and platforms. About ten years across SaaS, fintech, and infrastructure teams.',
+    tag: 'Next.js · Node · AWS · Postgres',
+  },
+  {
+    initials: 'DX',
+    title: 'Design & Product',
+    role: 'Product · UI · Design Systems',
+    bio: 'Designs interfaces and builds them in React. Consumer apps, dashboards, and design systems that survive a rewrite.',
+    tag: 'Figma · React · Design Systems',
+  },
 ];
 
 export default function HomePage() {
@@ -68,6 +88,12 @@ export default function HomePage() {
           <div className="col-span-12 md:col-span-4 md:col-start-9 mt-10">
             <Reveal delay={500}>
               <div className="flex items-baseline gap-3 mb-4">
+                {/* Tiny BrandMark with blinking cursor — gives the hero a
+                    living, "the terminal is open" feel without leaning on
+                    glow effects or video. Pairs with the live status tag. */}
+                <span className="inline-flex items-center text-[var(--color-ink)]">
+                  <BrandMark size={18} blink />
+                </span>
                 <span className="live">Studio status</span>
                 <span className="mono ink-faint">— live</span>
               </div>
@@ -86,6 +112,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ============ IMPACT STRIP — proof of delivery before any pitch ============ */}
+      <ImpactStrip />
 
       {/* ============ KINETIC HEADLINE STRIP ============ */}
       <section aria-hidden="true" className="py-6 border-y border-[var(--color-rule)] bg-paper-2">
@@ -122,12 +151,15 @@ export default function HomePage() {
         <LogoMarquee />
       </section>
 
-      {/* ============ FIRST PROJECTS ============ */}
+      {/* ============ SELECTED WORK — visual proof, four custom logo tiles ============ */}
+      <SelectedWork />
+
+      {/* ============ FIRST PROJECTS (cohort) ============ */}
       <section className="frame py-24 max-md:py-16">
         <div className="grid grid-cols-12 gap-6 items-end hairline-b pb-4 mb-12">
           <div className="col-span-12 md:col-span-8 flex items-baseline gap-4">
             <span className="index">First projects</span>
-            <span className="mono ink-faint">/ 02</span>
+            <span className="mono ink-faint">/ 03</span>
           </div>
           <div className="col-span-12 md:col-span-4 md:text-right mono ink-mute">
             Three slots · 2026
@@ -167,7 +199,7 @@ export default function HomePage() {
         <div className="grid grid-cols-12 gap-6 items-end hairline-b pb-4 mb-2">
           <div className="col-span-12 md:col-span-8 flex items-baseline gap-4">
             <span className="index">What we do</span>
-            <span className="mono ink-faint">/ 03</span>
+            <span className="mono ink-faint">/ 04</span>
           </div>
           <div className="col-span-12 md:col-span-4 md:text-right mono ink-mute">
             Three areas, one team
@@ -226,7 +258,7 @@ export default function HomePage() {
         <div className="grid grid-cols-12 gap-6 items-end hairline-b pb-4 mb-12">
           <div className="col-span-12 md:col-span-8 flex items-baseline gap-4">
             <span className="index">How we work</span>
-            <span className="mono ink-faint">/ 04</span>
+            <span className="mono ink-faint">/ 06</span>
           </div>
           <div className="col-span-12 md:col-span-4 md:text-right mono ink-mute">
             plan → design → build → support
@@ -256,13 +288,67 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ============ MEET THE TEAM — personal branding + founders' quote ============ */}
+      <section className="frame py-28 max-md:py-16">
+        <div className="grid grid-cols-12 gap-6 items-end hairline-b pb-4 mb-12">
+          <div className="col-span-12 md:col-span-8 flex items-baseline gap-4">
+            <span className="index">Meet the team</span>
+            <span className="mono ink-faint">/ 07</span>
+          </div>
+          <div className="col-span-12 md:col-span-4 md:text-right">
+            <Link href="/about" className="u-link mono ink inline-flex items-center gap-1.5">
+              Full studio brief
+              <IconArrow size={12} />
+            </Link>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-12 gap-x-6 gap-y-14 items-start">
+          {/* Pull quote — sets the tone for the cards beside it */}
+          <div className="col-span-12 md:col-span-5">
+            <Reveal>
+              <p className="font-display text-[clamp(1.6rem,1.1rem+1.6vw,2.6rem)] leading-[1.15] tracking-[-0.02em]"
+                 style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
+                <span className="signal font-display italic" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>&ldquo;</span>
+                We spent years building software inside other companies. Codio is the kind of studio we always wanted to hire — small, senior, and honest about scope.
+                <span className="signal font-display italic" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>&rdquo;</span>
+              </p>
+              <footer className="mt-6 mono ink-mute">— The founders · Codio Studio</footer>
+            </Reveal>
+          </div>
+
+          {/* Founder cards — stacked, full-bleed in their column */}
+          <div className="col-span-12 md:col-span-6 md:col-start-7">
+            {FOUNDERS.map((f, i) => (
+              <Reveal key={f.initials} delay={i * 120}>
+                <article className="founder-card group">
+                  <div className="founder-initials">{f.initials}</div>
+                  <div>
+                    <h3 className="font-display text-2xl leading-tight tracking-tight"
+                        style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
+                      {f.title}
+                    </h3>
+                    <div className="mono ink-mute mt-1">{f.role}</div>
+                    <p className="text-sm ink-mute mt-3 max-w-[44ch] leading-relaxed">{f.bio}</p>
+                    <div className="mono ink-faint mt-3 text-[0.72rem]">{f.tag}</div>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+            <p className="mono ink-mute mt-8 max-w-[48ch] leading-relaxed">
+              Full names and photos go up once our first projects begin. For now, the work comes first — introductions happen on the call.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ============ CTA — bold ink slab ============ */}
       <section className="frame py-28 max-md:py-16">
         <Reveal>
           <div className="bg-ink p-12 md:p-20 relative overflow-hidden">
             <div className="grid grid-cols-12 gap-6 items-end relative z-10">
               <div className="col-span-12 md:col-span-8">
-                <span className="mono" style={{ color: 'var(--color-paper-faint)' }}>[ 06 — start ]</span>
+                <span className="mono" style={{ color: 'var(--color-paper-faint)' }}>[ 08 — start ]</span>
                 <h2 className="font-display mt-6 text-[clamp(2.6rem,1.4rem+4vw,6rem)] leading-[0.94] tracking-[-0.03em]" style={{ color: 'var(--color-paper)', fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
                   Have a project <em className="italic" style={{ color: 'var(--color-signal)', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>worth building?</em>
                 </h2>

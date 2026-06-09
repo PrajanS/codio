@@ -643,6 +643,101 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
 }
 .stat-num em { color: var(--color-signal-deep); }
 
+/* ------------------------------------------------------------------
+   Homepage "Selected work" tile — compact preview card with logo,
+   meta row, and a hover state that slides the arrow into the title.
+   Keeps the existing slot aesthetic but at quarter-width so it can
+   fit four-up without competing with the full work-page cards.
+   ------------------------------------------------------------------ */
+.work-tile {
+  display: block;
+  color: inherit;
+}
+.work-tile-cover {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+  overflow: hidden;
+  transition:
+    transform 540ms var(--ease-out-expo),
+    border-color 540ms var(--ease-out-expo);
+}
+.work-tile:hover .work-tile-cover {
+  transform: translateY(-3px);
+  border-color: var(--color-ink);
+}
+.work-tile-tag {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute);
+}
+.work-tile-logo {
+  display: inline-flex;
+  transition: color 540ms var(--ease-out-expo), transform 540ms var(--ease-out-expo);
+}
+.work-tile:hover .work-tile-logo { transform: scale(1.04); }
+.work-tile-arrow {
+  display: inline-flex;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 360ms var(--ease-out-expo), transform 360ms var(--ease-out-expo);
+}
+.work-tile:hover .work-tile-arrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--color-signal-deep);
+}
+
+/* ------------------------------------------------------------------
+   Homepage founder card — large editorial initials with a quiet
+   hover lift. Sibling to the about-page TEAM block but built for
+   two-up homepage use.
+   ------------------------------------------------------------------ */
+.founder-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1.8rem;
+  align-items: baseline;
+  padding: 2rem 0;
+  border-top: 1px solid var(--color-rule);
+  transition: background 480ms var(--ease-out-expo), padding 480ms var(--ease-out-expo);
+}
+.founder-card:last-child { border-bottom: 1px solid var(--color-rule); }
+.founder-card .founder-initials {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 40;
+  font-size: clamp(3.2rem, 2rem + 2.6vw, 5.4rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--color-ink-faint);
+  transition: color 540ms var(--ease-out-expo),
+              font-style 540ms var(--ease-out-expo),
+              transform 540ms var(--ease-out-expo);
+}
+.founder-card:hover .founder-initials {
+  color: var(--color-signal-deep);
+  font-style: italic;
+  transform: translateX(4px);
+}
+@media (max-width: 640px) {
+  .founder-card {
+    grid-template-columns: 80px 1fr;
+    gap: 1.2rem;
+    padding: 1.4rem 0;
+  }
+}
+
 /* Underline link */
 .u-link {
   position: relative;
