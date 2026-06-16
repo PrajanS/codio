@@ -1,14 +1,18 @@
 import type { Metadata } from 'next';
+import type { ComponentType, SVGProps } from 'react';
 import Link from 'next/link';
 import Reveal from '../components/Reveal';
 import WordReveal from '../components/WordReveal';
 import MagneticButton from '../components/MagneticButton';
+import { IconGlobe, IconMobile, IconDesign } from '../components/Icon';
 
 export const metadata: Metadata = {
-  title: 'Services — Web, mobile, cloud, design',
+  title: 'Services — Web, mobile, design',
   description:
-    'We build web platforms, mobile apps, cloud systems, and product design — from start to finish, by senior engineers.',
+    'We build web platforms, mobile apps, and product design — from start to finish, by senior engineers.',
 };
+
+type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { size?: number }>;
 
 type Service = {
   id: string;
@@ -20,6 +24,7 @@ type Service = {
   blurb: string;
   stack: string[];
   features: string[];
+  Icon: IconComponent;
 };
 
 const SERVICES: Service[] = [
@@ -41,6 +46,7 @@ const SERVICES: Service[] = [
       'Speed and SEO tuning',
       'Accessibility (WCAG 2.2 AA)',
     ],
+    Icon: IconGlobe,
   },
   {
     id: 'mobile',
@@ -50,8 +56,8 @@ const SERVICES: Service[] = [
     italicWords: [0, 1],
     signalWords: [1],
     blurb:
-      'One team, two app stores, one code base. We use React Native or Flutter when they are the right fit, and Swift or Kotlin when we need full native power. App Store and Play Store submission is handled by us, from start to finish.',
-    stack: ['React Native', 'Expo', 'Swift', 'Kotlin', 'Firebase', 'Sentry'],
+      'One team, two app stores, one code base. We use Flutter or React Native when they are the right fit, and Swift or Kotlin when we need full native power. App Store and Play Store submission is handled by us, from start to finish.',
+    stack: ['Flutter', 'React Native', 'Swift', 'Kotlin', 'Firebase', 'Sentry'],
     features: [
       'Cross-platform apps',
       'Native iOS and Android',
@@ -60,29 +66,11 @@ const SERVICES: Service[] = [
       'Build pipelines for release',
       'App store submission and review',
     ],
-  },
-  {
-    id: 'cloud',
-    n: '03',
-    eyebrow: 'Cloud & Infrastructure',
-    title: 'Cloud infrastructure that is reliable and easy to watch.',
-    italicWords: [2, 5],
-    signalWords: [5],
-    blurb:
-      'AWS, GCP, and Azure setups built around your workload — not the other way round. Everything is written as code (Terraform, CDK), every release is traceable, and every problem is alerted before users notice.',
-    stack: ['Terraform', 'CDK', 'Kubernetes', 'AWS', 'GCP', 'Datadog · Grafana'],
-    features: [
-      'Cloud migration and redesign',
-      'Infrastructure as code',
-      'CI/CD pipelines',
-      'Kubernetes and serverless',
-      'Monitoring and alerting',
-      'Cost reviews',
-    ],
+    Icon: IconMobile,
   },
   {
     id: 'design',
-    n: '04',
+    n: '03',
     eyebrow: 'Product Design',
     title: 'Product design that ships with the code, not next quarter.',
     italicWords: [0, 1],
@@ -98,6 +86,7 @@ const SERVICES: Service[] = [
       'Component libraries',
       'Design hand-off',
     ],
+    Icon: IconDesign,
   },
 ];
 
@@ -106,19 +95,22 @@ const ENGAGEMENTS = [
     n: '01',
     name: 'Sprint',
     sub: 'Two weeks · fixed price',
-    body: "Research, a quick test build, and a working prototype. You get a written plan and a budget you can show your board. A good first step if you are not sure where to start.",
+    body:
+      "Research, a quick test build, and a working prototype. You get a written plan and a budget you can show your board. A good first step if you are not sure where to start.",
   },
   {
     n: '02',
     name: 'Build',
     sub: 'Six to twelve weeks · fixed scope',
-    body: 'A full production build with weekly demos and Friday releases. Fixed scope and fixed price. Three of these are open as our first project slots for 2026.',
+    body:
+      'A full production build with weekly demos and Friday releases. Fixed scope and fixed price. Three of these are open as our first project slots for 2026.',
   },
   {
     n: '03',
     name: 'Embed',
     sub: 'Three to twelve months · day rate',
-    body: 'We join your team as senior engineers for ongoing work. Day rate with a monthly limit. We only take one embed at a time so attention stays focused.',
+    body:
+      'We join your team as senior engineers for ongoing work. Day rate with a monthly limit. We only take one embed at a time so attention stays focused.',
   },
 ];
 
@@ -129,7 +121,7 @@ export default function ServicesPage() {
       <section className="frame pt-16 pb-20 max-md:pt-10 max-md:pb-12">
         <div className="flex items-baseline justify-between hairline-b pb-3 mb-12">
           <span className="mono ink-mute">[ 02 — services ]</span>
-          <span className="mono ink-faint">4 areas</span>
+          <span className="mono ink-faint">3 areas</span>
         </div>
 
         <WordReveal
@@ -141,12 +133,33 @@ export default function ServicesPage() {
           What we build for you.
         </WordReveal>
 
-        <div className="grid grid-cols-12 gap-6 mt-10">
+        <div className="grid grid-cols-12 gap-6 mt-10 items-baseline">
           <div className="col-span-12 md:col-span-6 md:col-start-2">
             <Reveal delay={240}>
               <p className="text-lg ink-mute leading-relaxed">
-                Four areas, all built by our team before Codio existed. Each one runs from start to finish — plan, design, build, support. Most projects use two or three of them, and every project starts with a 30-minute call.
+                Three areas, all built by our team before Codio existed. Each one runs from start to finish — plan, design, build, support. Most projects use two of them, and every project starts with a 30-minute call.
               </p>
+            </Reveal>
+          </div>
+
+          {/* Quick-jump icon row */}
+          <div className="col-span-12 md:col-span-4 md:col-start-9 max-md:mt-8">
+            <Reveal delay={360}>
+              <ul className="list-none p-0 grid grid-cols-3 gap-2">
+                {SERVICES.map((s) => (
+                  <li key={s.id}>
+                    <Link
+                      href={`#${s.id}`}
+                      className="group flex flex-col items-center gap-2 hairline px-2 py-4 ink-mute hover:ink transition-colors"
+                    >
+                      <span className="group-hover:signal transition-colors">
+                        <s.Icon size={28} />
+                      </span>
+                      <span className="mono text-[0.7rem]">{s.eyebrow.split(' ')[0]}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </Reveal>
           </div>
         </div>
@@ -176,8 +189,18 @@ export default function ServicesPage() {
             <Reveal key={e.n} className="col-span-12 md:col-span-4" delay={i * 80}>
               <article className="hairline-b pb-10 h-full">
                 <div className="flex items-baseline gap-4">
-                  <span className="font-display text-6xl leading-none ink-faint" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>{e.n}</span>
-                  <h3 className="font-display italic text-2xl leading-none signal" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>{e.name}</h3>
+                  <span
+                    className="font-display text-6xl leading-none ink-faint"
+                    style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}
+                  >
+                    {e.n}
+                  </span>
+                  <h3
+                    className="font-display italic text-2xl leading-none signal"
+                    style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}
+                  >
+                    {e.name}
+                  </h3>
                 </div>
                 <div className="mono ink-mute mt-3 mb-5">{e.sub}</div>
                 <p className="text-base ink-mute leading-relaxed">{e.body}</p>
@@ -194,11 +217,14 @@ export default function ServicesPage() {
             <div className="grid grid-cols-12 gap-6 items-end">
               <div className="col-span-12 md:col-span-8">
                 <span className="mono" style={{ color: 'var(--color-paper-faint)' }}>[ 03 — start ]</span>
-                <h2 className="font-display mt-6 text-[clamp(2.4rem,1.4rem+3vw,5rem)] leading-[0.94] tracking-[-0.03em]" style={{ color: 'var(--color-paper)', fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
-                  Pick one area. <em className="italic" style={{ color: 'var(--color-signal)', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>Or all four.</em>
+                <h2
+                  className="font-display mt-6 text-[clamp(2.4rem,1.4rem+3vw,5rem)] leading-[0.94] tracking-[-0.03em]"
+                  style={{ color: 'var(--color-paper)', fontVariationSettings: '"opsz" 144, "SOFT" 40' }}
+                >
+                  Pick one area. <em className="italic" style={{ color: 'var(--color-signal)', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>Or all three.</em>
                 </h2>
                 <p className="mt-6 max-w-[55ch]" style={{ color: 'var(--color-paper-mute)' }}>
-                  Most of our projects cover two or three of these areas. Every one starts with a 30-minute call. No slide deck, no sales follow-ups.
+                  Most of our projects cover two of these areas. Every one starts with a 30-minute call. No slide deck, no sales follow-ups.
                 </p>
               </div>
               <div className="col-span-12 md:col-span-4 md:text-right">
@@ -220,8 +246,22 @@ function ServiceBlock({ service: s, reverse }: { service: Service; reverse: bool
       <div className="grid grid-cols-12 gap-x-6 gap-y-10">
         <div className={`col-span-12 md:col-span-5 ${reverse ? 'md:col-start-8 md:order-2' : ''}`}>
           <div className="sticky top-28">
+            {/* Icon + index + eyebrow row. The icon gives a glance-level
+                cue to what this section is about before the title even
+                resolves. */}
             <div className="flex items-baseline gap-4 mb-6">
-              <span className="font-display text-[5rem] leading-none ink-faint" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>{s.n}</span>
+              <span
+                className="ink-mute flex-shrink-0 self-center"
+                aria-hidden="true"
+              >
+                <s.Icon size={36} />
+              </span>
+              <span
+                className="font-display text-[5rem] leading-none ink-faint"
+                style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}
+              >
+                {s.n}
+              </span>
               <span className="mono ink-mute">{s.eyebrow}</span>
             </div>
             <WordReveal
@@ -245,7 +285,11 @@ function ServiceBlock({ service: s, reverse }: { service: Service; reverse: bool
             </div>
             <ul className="grid grid-cols-2 gap-y-2 gap-x-6 mb-12 list-none p-0">
               {s.stack.map((t) => (
-                <li key={t} className="font-display text-xl tracking-tight" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
+                <li
+                  key={t}
+                  className="font-display text-xl tracking-tight"
+                  style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}
+                >
                   {t}
                 </li>
               ))}
