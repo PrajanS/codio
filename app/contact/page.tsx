@@ -10,10 +10,12 @@ export const metadata: Metadata = {
     "Tell us about your project. We reply in one working day. No long sales process. After the first call, you get a one-page plan.",
 };
 
+const GMAIL_COMPOSE = 'https://mail.google.com/mail/?view=cm&fs=1&to=ash@codio.co.in&su=Project%20enquiry';
+
 const LINES = [
-  { icon: <IconMail size={16} />, label: 'Email', value: 'hello@codio.studio', href: 'mailto:hello@codio.studio' },
-  { icon: <IconPin size={16} />, label: 'Location', value: 'Remote-first · global' },
-  { icon: <IconClock size={16} />, label: 'Hours', value: 'Mon — Fri · 09 — 18 IST' },
+  { icon: <IconMail size={16} />, label: 'Email', value: 'ash@codio.co.in', href: GMAIL_COMPOSE, external: true },
+  { icon: <IconPin size={16} />, label: 'Location', value: 'Remote-first · global', external: false },
+  { icon: <IconClock size={16} />, label: 'Hours', value: 'Mon — Fri · 09 — 18 IST', external: false },
 ];
 
 const FAQS = [
@@ -87,7 +89,13 @@ export default function ContactPage() {
                       <span>{l.label}</span>
                     </div>
                     {l.href ? (
-                      <a href={l.href} className="font-display text-xl u-link ink" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
+                      <a
+                        href={l.href}
+                        target={l.external ? '_blank' : undefined}
+                        rel={l.external ? 'noopener noreferrer' : undefined}
+                        className="font-display text-xl u-link ink"
+                        style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}
+                      >
                         {l.value}
                       </a>
                     ) : (

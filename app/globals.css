@@ -593,13 +593,20 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
 .service-slab {
   position: relative;
   display: grid;
-  grid-template-columns: 80px 1fr auto;
+  grid-template-columns: 80px 32px 1fr auto;
   align-items: center;
   gap: 2rem;
   padding: 2.2rem 0;
   border-bottom: 1px solid var(--color-rule);
   transition: background 480ms var(--ease-out-expo), padding 480ms var(--ease-out-expo);
 }
+.service-slab .slab-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 480ms var(--ease-out-expo);
+}
+.service-slab:hover .slab-icon { color: var(--color-signal); }
 .service-slab .slab-title {
   font-family: var(--font-display);
   font-weight: 540;
@@ -635,6 +642,137 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
   color: var(--color-ink);
 }
 .stat-num em { color: var(--color-signal-deep); }
+
+/* ------------------------------------------------------------------
+   Homepage "Selected work" tile — compact preview card with logo,
+   meta row, and a hover state that slides the arrow into the title.
+   Keeps the existing slot aesthetic but at quarter-width so it can
+   fit four-up without competing with the full work-page cards.
+   ------------------------------------------------------------------ */
+.work-tile {
+  display: block;
+  color: inherit;
+}
+.work-tile-cover {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+  overflow: hidden;
+  transition:
+    transform 540ms var(--ease-out-expo),
+    border-color 540ms var(--ease-out-expo);
+}
+.work-tile:hover .work-tile-cover {
+  transform: translateY(-3px);
+  border-color: var(--color-ink);
+}
+.work-tile-tag {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute);
+}
+.work-tile-logo {
+  display: inline-flex;
+  transition: color 540ms var(--ease-out-expo), transform 540ms var(--ease-out-expo);
+}
+.work-tile:hover .work-tile-logo { transform: scale(1.04); }
+.work-tile-arrow {
+  display: inline-flex;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 360ms var(--ease-out-expo), transform 360ms var(--ease-out-expo);
+}
+.work-tile:hover .work-tile-arrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--color-signal-deep);
+}
+
+/* ------------------------------------------------------------------
+   Homepage founder card — vertical 4-up variant. Top-aligned index
+   row, oversized initials, then name + role + bio + tech tag. Hover
+   lifts the card and tints the initials signal-green. Sits in a
+   responsive grid (1-up / 2-up / 4-up).
+   ------------------------------------------------------------------ */
+.founder-card-v {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.6rem 1.8rem;
+  border: 1px solid var(--color-rule);
+  background: var(--color-paper);
+  transition:
+    transform 540ms var(--ease-out-expo),
+    border-color 540ms var(--ease-out-expo),
+    background 540ms var(--ease-out-expo);
+}
+.founder-card-v:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-ink);
+  background: var(--color-paper-2);
+}
+.founder-initials-v {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 40;
+  font-size: clamp(3.4rem, 2.4rem + 2vw, 5rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--color-ink-faint);
+  transition: color 540ms var(--ease-out-expo),
+              font-style 540ms var(--ease-out-expo);
+}
+.founder-card-v:hover .founder-initials-v {
+  color: var(--color-signal-deep);
+  font-style: italic;
+}
+
+/* ------------------------------------------------------------------
+   Homepage founder card (legacy 2-up variant — kept for any other
+   surface that still mounts the original two-column layout).
+   ------------------------------------------------------------------ */
+.founder-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1.8rem;
+  align-items: baseline;
+  padding: 2rem 0;
+  border-top: 1px solid var(--color-rule);
+  transition: background 480ms var(--ease-out-expo), padding 480ms var(--ease-out-expo);
+}
+.founder-card:last-child { border-bottom: 1px solid var(--color-rule); }
+.founder-card .founder-initials {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 40;
+  font-size: clamp(3.2rem, 2rem + 2.6vw, 5.4rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--color-ink-faint);
+  transition: color 540ms var(--ease-out-expo),
+              font-style 540ms var(--ease-out-expo),
+              transform 540ms var(--ease-out-expo);
+}
+.founder-card:hover .founder-initials {
+  color: var(--color-signal-deep);
+  font-style: italic;
+  transform: translateX(4px);
+}
+@media (max-width: 640px) {
+  .founder-card {
+    grid-template-columns: 80px 1fr;
+    gap: 1.2rem;
+    padding: 1.4rem 0;
+  }
+}
 
 /* Underline link */
 .u-link {
@@ -777,16 +915,20 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
   /* Service slab: the 3-column desktop row is cramped on phones.
      Stack the tech meta under the title and ease the hover takeover. */
   .service-slab {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto 1fr;
     grid-template-areas:
-      "idx title"
-      "sub  sub";
-    column-gap: 1rem;
+      "idx icon title"
+      "sub sub  sub";
+    column-gap: 0.9rem;
     row-gap: 0.5rem;
     padding: 1.7rem 0;
     align-items: baseline;
   }
   .service-slab > .slab-idx { grid-area: idx; }
+  .service-slab > .slab-icon {
+    grid-area: icon;
+    align-self: center;
+  }
   .service-slab > .slab-title { grid-area: title; }
   .service-slab > .mono {
     grid-area: sub;

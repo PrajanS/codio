@@ -89,3 +89,12 @@ export const IconGlobe = (p: IconProps) => (
     <path d="M12 3c2.5 2.5 3.8 5.7 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3Z" />
   </svg>
 );
+
+/* Pen nib + grid — marks product design work */
+export const IconDesign = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M4 20l4-1 10-10-3-3L5 16l-1 4Z" />
+    <path d="M14 6l3 3" />
+    <path d="M18 14h3M18 18h3M14 18v3" opacity=".7" />
+  </svg>
+);

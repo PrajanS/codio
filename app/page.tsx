@@ -1,15 +1,21 @@
+import type { ComponentType, SVGProps } from 'react';
 import Link from 'next/link';
 import Reveal from './components/Reveal';
 import WordReveal from './components/WordReveal';
 import MagneticButton from './components/MagneticButton';
 import LogoMarquee from './components/LogoMarquee';
 import Marquee from './components/Marquee';
+import ImpactStrip from './components/ImpactStrip';
+import SelectedWork from './components/SelectedWork';
+import BrandMark from './components/BrandMark';
+import { IconGlobe, IconMobile, IconDesign, IconArrow } from './components/Icon';
 
-const SERVICES = [
-  { n: '01', name: 'Web Platforms', sub: 'Next.js · React · TypeScript' },
-  { n: '02', name: 'Mobile Applications', sub: 'React Native · Swift · Kotlin' },
-  { n: '03', name: 'Cloud & Infra', sub: 'AWS · GCP · Terraform · K8s' },
-  { n: '04', name: 'Product Design', sub: 'Discovery · UX · Design Systems' },
+type ServiceIcon = ComponentType<SVGProps<SVGSVGElement> & { size?: number }>;
+
+const SERVICES: { n: string; name: string; sub: string; Icon: ServiceIcon; anchor: string }[] = [
+  { n: '01', name: 'Web Platforms', sub: 'Next.js · React · TypeScript', Icon: IconGlobe, anchor: 'web' },
+  { n: '02', name: 'Mobile Applications', sub: 'Flutter · React Native · Swift', Icon: IconMobile, anchor: 'mobile' },
+  { n: '03', name: 'Product Design', sub: 'Discovery · UX · Design Systems', Icon: IconDesign, anchor: 'design' },
 ];
 
 const PROCESS = [
@@ -22,7 +28,38 @@ const PROCESS = [
 const COHORT = [
   { n: '01', label: 'Reserved', body: 'First seat is taken. The project starts in July.' },
   { n: '02', label: 'Open', body: 'Looking for a web or mobile build with a team that wants senior help from day one.' },
-  { n: '03', label: 'Open', body: 'Looking for a cloud or infrastructure project we can own from start to finish.' },
+  { n: '03', label: 'Open', body: 'Looking for a design-led product engagement we can shape end to end.' },
+];
+
+const FOUNDERS = [
+  {
+    initials: 'PS',
+    name: 'Prajan S',
+    role: 'Product & Engineering',
+    bio: 'Shapes the product, owns the engineering roadmap, and keeps releases on track. The first person you talk to on a kickoff call.',
+    tag: 'Product · Architecture · Delivery',
+  },
+  {
+    initials: 'RV',
+    name: 'Raghunanthan VR',
+    role: 'Mobile Engineering',
+    bio: 'Builds the mobile side end to end. Shipped both Hitagyana apps from prototype through to production on the Play Store.',
+    tag: 'Flutter · Firebase · Dart',
+  },
+  {
+    initials: 'AV',
+    name: 'Ashwanth V',
+    role: 'Design & Brand',
+    bio: 'Leads design and brand. Turns rough scope into something we are not embarrassed to put a real user in front of.',
+    tag: 'Figma · Brand · UI',
+  },
+  {
+    initials: 'SM',
+    name: 'Sanjaykumar M',
+    role: 'Web Engineering',
+    bio: 'Builds web platforms top to bottom. Shipped FitCore and FanikClean — real dashboards, real users, real money flowing through.',
+    tag: 'React · Node · PHP · SQL',
+  },
 ];
 
 export default function HomePage() {
@@ -65,6 +102,12 @@ export default function HomePage() {
           <div className="col-span-12 md:col-span-4 md:col-start-9 mt-10">
             <Reveal delay={500}>
               <div className="flex items-baseline gap-3 mb-4">
+                {/* Tiny BrandMark with blinking cursor — gives the hero a
+                    living, "the terminal is open" feel without leaning on
+                    glow effects or video. Pairs with the live status tag. */}
+                <span className="inline-flex items-center text-[var(--color-ink)]">
+                  <BrandMark size={18} blink />
+                </span>
                 <span className="live">Studio status</span>
                 <span className="mono ink-faint">— live</span>
               </div>
@@ -83,6 +126,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ============ IMPACT STRIP — proof of delivery before any pitch ============ */}
+      <ImpactStrip />
 
       {/* ============ KINETIC HEADLINE STRIP ============ */}
       <section aria-hidden="true" className="py-6 border-y border-[var(--color-rule)] bg-paper-2">
@@ -119,12 +165,15 @@ export default function HomePage() {
         <LogoMarquee />
       </section>
 
-      {/* ============ FIRST PROJECTS ============ */}
+      {/* ============ SELECTED WORK — visual proof, four custom logo tiles ============ */}
+      <SelectedWork />
+
+      {/* ============ FIRST PROJECTS (cohort) ============ */}
       <section className="frame py-24 max-md:py-16">
         <div className="grid grid-cols-12 gap-6 items-end hairline-b pb-4 mb-12">
           <div className="col-span-12 md:col-span-8 flex items-baseline gap-4">
             <span className="index">First projects</span>
-            <span className="mono ink-faint">/ 02</span>
+            <span className="mono ink-faint">/ 03</span>
           </div>
           <div className="col-span-12 md:col-span-4 md:text-right mono ink-mute">
             Three slots · 2026
@@ -164,10 +213,10 @@ export default function HomePage() {
         <div className="grid grid-cols-12 gap-6 items-end hairline-b pb-4 mb-2">
           <div className="col-span-12 md:col-span-8 flex items-baseline gap-4">
             <span className="index">What we do</span>
-            <span className="mono ink-faint">/ 03</span>
+            <span className="mono ink-faint">/ 04</span>
           </div>
           <div className="col-span-12 md:col-span-4 md:text-right mono ink-mute">
-            Four areas, one team
+            Three areas, one team
           </div>
         </div>
 
@@ -175,10 +224,13 @@ export default function HomePage() {
           {SERVICES.map((s) => (
             <Link
               key={s.n}
-              href={`/services#${s.name.split(' ')[0].toLowerCase()}`}
+              href={`/services#${s.anchor}`}
               className="service-slab"
             >
               <span className="slab-idx ink-mute">{s.n}</span>
+              <span className="slab-icon ink-mute" aria-hidden="true">
+                <s.Icon size={22} />
+              </span>
               <span className="slab-title">{s.name}</span>
               <span className="mono ink-mute justify-self-end">{s.sub}</span>
             </Link>
@@ -220,7 +272,7 @@ export default function HomePage() {
         <div className="grid grid-cols-12 gap-6 items-end hairline-b pb-4 mb-12">
           <div className="col-span-12 md:col-span-8 flex items-baseline gap-4">
             <span className="index">How we work</span>
-            <span className="mono ink-faint">/ 04</span>
+            <span className="mono ink-faint">/ 06</span>
           </div>
           <div className="col-span-12 md:col-span-4 md:text-right mono ink-mute">
             plan → design → build → support
@@ -250,13 +302,67 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ============ MEET THE TEAM — personal branding + founders' quote ============ */}
+      <section className="frame py-28 max-md:py-16">
+        <div className="grid grid-cols-12 gap-6 items-end hairline-b pb-4 mb-12">
+          <div className="col-span-12 md:col-span-8 flex items-baseline gap-4">
+            <span className="index">Meet the team</span>
+            <span className="mono ink-faint">/ 07</span>
+          </div>
+          <div className="col-span-12 md:col-span-4 md:text-right">
+            <Link href="/about" className="u-link mono ink inline-flex items-center gap-1.5">
+              Full studio brief
+              <IconArrow size={12} />
+            </Link>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-12 gap-x-6 gap-y-14 items-start">
+          {/* Pull quote — sets the tone for the founder cards below */}
+          <div className="col-span-12 md:col-span-8 md:col-start-3">
+            <Reveal>
+              <p className="font-display text-[clamp(1.7rem,1.1rem+1.8vw,2.8rem)] text-center leading-[1.18] tracking-[-0.02em]"
+                 style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
+                <span className="signal font-display italic" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>&ldquo;</span>
+                We spent years building software inside other companies. Codio is the kind of studio we always wanted to hire — small, senior, and honest about scope.
+                <span className="signal font-display italic" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>&rdquo;</span>
+              </p>
+              <footer className="mt-6 mono ink-mute text-center">— The four founders · Codio Studio</footer>
+            </Reveal>
+          </div>
+
+          {/* Founder grid — full-width 4-up on desktop, 2-up on tablet,
+              stacked on phone. Index numerals match the homepage rhythm. */}
+          <ul className="col-span-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 list-none p-0 mt-4">
+            {FOUNDERS.map((f, i) => (
+              <Reveal as="li" key={f.initials} delay={i * 100}>
+                <article className="founder-card-v group h-full">
+                  <div className="flex items-baseline justify-between mb-5">
+                    <span className="mono ink-faint">0{i + 1}</span>
+                    <span className="mono ink-mute text-[0.62rem]">founder</span>
+                  </div>
+                  <div className="founder-initials-v" aria-hidden="true">{f.initials}</div>
+                  <h3 className="font-display text-xl leading-tight tracking-tight mt-5"
+                      style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
+                    {f.name}
+                  </h3>
+                  <div className="mono signal mt-1 text-[0.72rem]">{f.role}</div>
+                  <p className="text-sm ink-mute mt-3 leading-relaxed">{f.bio}</p>
+                  <div className="mono ink-faint mt-4 text-[0.7rem] hairline pt-3">{f.tag}</div>
+                </article>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* ============ CTA — bold ink slab ============ */}
       <section className="frame py-28 max-md:py-16">
         <Reveal>
           <div className="bg-ink p-12 md:p-20 relative overflow-hidden">
             <div className="grid grid-cols-12 gap-6 items-end relative z-10">
               <div className="col-span-12 md:col-span-8">
-                <span className="mono" style={{ color: 'var(--color-paper-faint)' }}>[ 06 — start ]</span>
+                <span className="mono" style={{ color: 'var(--color-paper-faint)' }}>[ 08 — start ]</span>
                 <h2 className="font-display mt-6 text-[clamp(2.6rem,1.4rem+4vw,6rem)] leading-[0.94] tracking-[-0.03em]" style={{ color: 'var(--color-paper)', fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
                   Have a project <em className="italic" style={{ color: 'var(--color-signal)', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>worth building?</em>
                 </h2>
@@ -266,7 +372,7 @@ export default function HomePage() {
                   Apply for a slot
                 </MagneticButton>
                 <p className="mono mt-6" style={{ color: 'var(--color-paper-faint)' }}>
-                  hello@codio.studio · reply within 24h
+                  ash@codio.co.in · reply within 24h
                 </p>
               </div>
             </div>
