@@ -33,18 +33,32 @@ const COHORT = [
 
 const FOUNDERS = [
   {
-    initials: 'EN',
-    title: 'Engineering',
-    role: 'Backend · Cloud · Platform',
-    bio: 'Builds backends, cloud systems, and platforms. About ten years across SaaS, fintech, and infrastructure teams.',
-    tag: 'Next.js · Node · AWS · Postgres',
+    initials: 'PS',
+    name: 'Prajan S',
+    role: 'Product & Engineering',
+    bio: 'Shapes the product, owns the engineering roadmap, and keeps releases on track. The first person you talk to on a kickoff call.',
+    tag: 'Product · Architecture · Delivery',
   },
   {
-    initials: 'DX',
-    title: 'Design & Product',
-    role: 'Product · UI · Design Systems',
-    bio: 'Designs interfaces and builds them in React. Consumer apps, dashboards, and design systems that survive a rewrite.',
-    tag: 'Figma · React · Design Systems',
+    initials: 'RV',
+    name: 'Raghunanthan VR',
+    role: 'Mobile Engineering',
+    bio: 'Builds the mobile side end to end. Shipped both Hitagyana apps from prototype through to production on the Play Store.',
+    tag: 'Flutter · Firebase · Dart',
+  },
+  {
+    initials: 'AV',
+    name: 'Ashwanth V',
+    role: 'Design & Brand',
+    bio: 'Leads design and brand. Turns rough scope into something we are not embarrassed to put a real user in front of.',
+    tag: 'Figma · Brand · UI',
+  },
+  {
+    initials: 'SM',
+    name: 'Sanjaykumar M',
+    role: 'Web Engineering',
+    bio: 'Builds web platforms top to bottom. Shipped FitCore and FanikClean — real dashboards, real users, real money flowing through.',
+    tag: 'React · Node · PHP · SQL',
   },
 ];
 
@@ -304,41 +318,41 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-12 gap-x-6 gap-y-14 items-start">
-          {/* Pull quote — sets the tone for the cards beside it */}
-          <div className="col-span-12 md:col-span-5">
+          {/* Pull quote — sets the tone for the founder cards below */}
+          <div className="col-span-12 md:col-span-8 md:col-start-3">
             <Reveal>
-              <p className="font-display text-[clamp(1.6rem,1.1rem+1.6vw,2.6rem)] leading-[1.15] tracking-[-0.02em]"
+              <p className="font-display text-[clamp(1.7rem,1.1rem+1.8vw,2.8rem)] text-center leading-[1.18] tracking-[-0.02em]"
                  style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
                 <span className="signal font-display italic" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>&ldquo;</span>
                 We spent years building software inside other companies. Codio is the kind of studio we always wanted to hire — small, senior, and honest about scope.
                 <span className="signal font-display italic" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>&rdquo;</span>
               </p>
-              <footer className="mt-6 mono ink-mute">— The founders · Codio Studio</footer>
+              <footer className="mt-6 mono ink-mute text-center">— The four founders · Codio Studio</footer>
             </Reveal>
           </div>
 
-          {/* Founder cards — stacked, full-bleed in their column */}
-          <div className="col-span-12 md:col-span-6 md:col-start-7">
+          {/* Founder grid — full-width 4-up on desktop, 2-up on tablet,
+              stacked on phone. Index numerals match the homepage rhythm. */}
+          <ul className="col-span-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 list-none p-0 mt-4">
             {FOUNDERS.map((f, i) => (
-              <Reveal key={f.initials} delay={i * 120}>
-                <article className="founder-card group">
-                  <div className="founder-initials">{f.initials}</div>
-                  <div>
-                    <h3 className="font-display text-2xl leading-tight tracking-tight"
-                        style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
-                      {f.title}
-                    </h3>
-                    <div className="mono ink-mute mt-1">{f.role}</div>
-                    <p className="text-sm ink-mute mt-3 max-w-[44ch] leading-relaxed">{f.bio}</p>
-                    <div className="mono ink-faint mt-3 text-[0.72rem]">{f.tag}</div>
+              <Reveal as="li" key={f.initials} delay={i * 100}>
+                <article className="founder-card-v group h-full">
+                  <div className="flex items-baseline justify-between mb-5">
+                    <span className="mono ink-faint">0{i + 1}</span>
+                    <span className="mono ink-mute text-[0.62rem]">founder</span>
                   </div>
+                  <div className="founder-initials-v" aria-hidden="true">{f.initials}</div>
+                  <h3 className="font-display text-xl leading-tight tracking-tight mt-5"
+                      style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
+                    {f.name}
+                  </h3>
+                  <div className="mono signal mt-1 text-[0.72rem]">{f.role}</div>
+                  <p className="text-sm ink-mute mt-3 leading-relaxed">{f.bio}</p>
+                  <div className="mono ink-faint mt-4 text-[0.7rem] hairline pt-3">{f.tag}</div>
                 </article>
               </Reveal>
             ))}
-            <p className="mono ink-mute mt-8 max-w-[48ch] leading-relaxed">
-              Full names and photos go up once our first projects begin. For now, the work comes first — introductions happen on the call.
-            </p>
-          </div>
+          </ul>
         </div>
       </section>
 
@@ -358,7 +372,7 @@ export default function HomePage() {
                   Apply for a slot
                 </MagneticButton>
                 <p className="mono mt-6" style={{ color: 'var(--color-paper-faint)' }}>
-                  hello@codio.studio · reply within 24h
+                  ash@codio.co.in · reply within 24h
                 </p>
               </div>
             </div>

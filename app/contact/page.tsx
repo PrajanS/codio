@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const LINES = [
-  { icon: <IconMail size={16} />, label: 'Email', value: 'hello@codio.studio', href: 'mailto:hello@codio.studio' },
+  { icon: <IconMail size={16} />, label: 'Email', value: 'ash@codio.co.in', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=ash@codio.co.in&su=Project%20enquiry', external: true },
   { icon: <IconPin size={16} />, label: 'Location', value: 'Remote-first · global' },
   { icon: <IconClock size={16} />, label: 'Hours', value: 'Mon — Fri · 09 — 18 IST' },
 ];
@@ -87,7 +87,13 @@ export default function ContactPage() {
                       <span>{l.label}</span>
                     </div>
                     {l.href ? (
-                      <a href={l.href} className="font-display text-xl u-link ink" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
+                      <a
+                        href={l.href}
+                        target={('external' in l && l.external) ? '_blank' : undefined}
+                        rel={('external' in l && l.external) ? 'noopener noreferrer' : undefined}
+                        className="font-display text-xl u-link ink"
+                        style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}
+                      >
                         {l.value}
                       </a>
                     ) : (

@@ -4,9 +4,9 @@ import WordReveal from '../components/WordReveal';
 import MagneticButton from '../components/MagneticButton';
 
 export const metadata: Metadata = {
-  title: 'Studio — One small team, one direct line',
+  title: 'Studio — Four founders, one direct line',
   description:
-    'Codio is a new senior software studio. We write the code ourselves. Three project slots open for 2026.',
+    'Codio is a new senior software studio founded by Prajan S, Raghunanthan VR, Ashwanth V, and Sanjaykumar M. We write the code ourselves. Three project slots open for 2026.',
 };
 
 const VALUES = [
@@ -34,18 +34,32 @@ const VALUES = [
 
 const TEAM = [
   {
-    initials: 'EN',
-    title: 'Engineering',
-    role: 'Backend · Cloud · Platform',
-    bio: 'Builds backends, cloud systems, and platforms. Around ten years of experience across SaaS, fintech, and infrastructure teams. Recently a senior engineer shipping production software at scale.',
-    tag: 'Next.js · Node · AWS · Postgres',
+    initials: 'PS',
+    title: 'Prajan S',
+    role: 'Product & Engineering',
+    bio: 'Shapes the product, owns the engineering roadmap, and keeps releases on track. The first person you talk to on a kickoff call, and the one who writes the one-page plan after.',
+    tag: 'Product · Architecture · Delivery',
   },
   {
-    initials: 'DX',
-    title: 'Design & Product',
-    role: 'Product · UI · Design Systems',
-    bio: 'Designs interfaces and builds them in React. Years of work on consumer apps, business dashboards, and design systems that survive a full rewrite.',
-    tag: 'Figma · React · Design Systems',
+    initials: 'RV',
+    title: 'Raghunanthan VR',
+    role: 'Mobile Engineering',
+    bio: 'Builds the mobile side end to end. Shipped both Hitagyana apps from prototype through to production on the Play Store — Flutter, Firebase, Dart, in production.',
+    tag: 'Flutter · Firebase · Dart',
+  },
+  {
+    initials: 'AV',
+    title: 'Ashwanth V',
+    role: 'Design & Brand',
+    bio: 'Leads design and brand. Turns rough scope into something we are not embarrassed to put a real user in front of. Owns the visual system from logo to last empty state.',
+    tag: 'Figma · Brand · UI',
+  },
+  {
+    initials: 'SM',
+    title: 'Sanjaykumar M',
+    role: 'Web Engineering',
+    bio: 'Builds web platforms top to bottom. Shipped FitCore (React / Node / Postgres) and FanikClean (PHP / MySQL) — real dashboards, real users, real money flowing through.',
+    tag: 'React · Node · PHP · SQL',
   },
 ];
 
@@ -62,17 +76,17 @@ export default function AboutPage() {
         <WordReveal
           as="h1"
           className="font-display leading-[0.94] tracking-[-0.04em] text-[clamp(3rem,1.6rem+6vw,9rem)]"
-          italic={[6, 7]}
-          signal={[7]}
+          italic={[5, 6]}
+          signal={[6]}
         >
-          One small team. One direct line. No middlemen.
+          Four founders. One direct line. No middlemen.
         </WordReveal>
 
         <div className="grid grid-cols-12 gap-6 mt-12">
           <div className="col-span-12 md:col-span-5 md:col-start-2">
             <Reveal delay={250}>
               <p className="text-lg ink-mute leading-relaxed">
-                Codio is a new senior software studio, started in 2026 by two people who spent the last ten years building software inside other companies. We are staying small on purpose. For our first year, we are taking only three projects so each one gets our full attention.
+                Codio is a new senior software studio, started in 2026 by four people who spent the last several years building software inside other companies and shipping side projects of their own. We are staying small on purpose. For our first year, we are taking only three projects so each one gets our full attention.
               </p>
             </Reveal>
           </div>
@@ -89,7 +103,7 @@ export default function AboutPage() {
       {/* ============ NUMBERS STRIP ============ */}
       <section className="bg-paper-2 hairline hairline-b py-16 max-md:py-10">
         <div className="frame grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
-          <Num n="01" v="2" label="Senior builders on every project" />
+          <Num n="01" v="4" label="Founders on every project" />
           <Num n="02" v="3" label="Total project slots for 2026" />
           <Num n="03" v="2" label="Slots still open" />
           <Num n="04" v="2026" label="Studio founded" />
@@ -162,7 +176,7 @@ export default function AboutPage() {
         </div>
 
         <p className="mono ink-mute mt-10 max-w-[60ch]">
-          Full names and photos will be added once our first projects begin. For now, you can see the work first. The introductions happen on the first call.
+          Photos go up next. For now, you can see the work first — the proper introductions happen on the first call.
         </p>
       </section>
 

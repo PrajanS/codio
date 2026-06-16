@@ -71,7 +71,7 @@ export default function ContactForm() {
     } catch {
       setStatus({
         kind: 'error',
-        message: 'Something went wrong. Please email hello@codio.studio directly.',
+        message: 'Something went wrong. Please email ash@codio.co.in directly.',
       });
     } finally {
       setSending(false);

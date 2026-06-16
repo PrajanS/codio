@@ -44,7 +44,7 @@ export default function ImpactStrip() {
       n: '04',
       value: '2026',
       label: 'Studio founded',
-      sub: '2 founders · 3 slots',
+      sub: '4 founders · 3 slots',
     },
   ];
 

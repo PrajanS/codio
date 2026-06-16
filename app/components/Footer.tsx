@@ -53,8 +53,14 @@ export default function Footer() {
               <em className="italic" style={{ color: 'var(--color-signal)' }}>We reply within one working day.</em>
             </h2>
             <div className="space-y-2">
-              <a href="mailto:hello@codio.studio" className="block font-display text-2xl u-link" style={{ color: 'var(--color-paper)' }}>
-                hello@codio.studio
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=ash@codio.co.in&su=Project%20enquiry"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block font-display text-2xl u-link"
+                style={{ color: 'var(--color-paper)' }}
+              >
+                ash@codio.co.in
               </a>
               <Link href="/contact" className="block mono u-link" style={{ color: 'var(--color-paper-mute)' }}>
                 Book a 30-minute call ↗

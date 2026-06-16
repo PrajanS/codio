@@ -699,9 +699,45 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
 }
 
 /* ------------------------------------------------------------------
-   Homepage founder card — large editorial initials with a quiet
-   hover lift. Sibling to the about-page TEAM block but built for
-   two-up homepage use.
+   Homepage founder card — vertical 4-up variant. Top-aligned index
+   row, oversized initials, then name + role + bio + tech tag. Hover
+   lifts the card and tints the initials signal-green. Sits in a
+   responsive grid (1-up / 2-up / 4-up).
+   ------------------------------------------------------------------ */
+.founder-card-v {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.6rem 1.8rem;
+  border: 1px solid var(--color-rule);
+  background: var(--color-paper);
+  transition:
+    transform 540ms var(--ease-out-expo),
+    border-color 540ms var(--ease-out-expo),
+    background 540ms var(--ease-out-expo);
+}
+.founder-card-v:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-ink);
+  background: var(--color-paper-2);
+}
+.founder-initials-v {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 40;
+  font-size: clamp(3.4rem, 2.4rem + 2vw, 5rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--color-ink-faint);
+  transition: color 540ms var(--ease-out-expo),
+              font-style 540ms var(--ease-out-expo);
+}
+.founder-card-v:hover .founder-initials-v {
+  color: var(--color-signal-deep);
+  font-style: italic;
+}
+
+/* ------------------------------------------------------------------
+   Homepage founder card (legacy 2-up variant — kept for any other
+   surface that still mounts the original two-column layout).
    ------------------------------------------------------------------ */
 .founder-card {
   position: relative;

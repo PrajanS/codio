@@ -19,6 +19,6 @@ export async function processContactRequest(formData: FormData) {
     }
     return { success: false, message: data.message || 'Submission failed.' };
   } catch {
-    return { success: false, message: 'Something went wrong. Please email us directly at hello@codio.studio.' };
+    return { success: false, message: 'Something went wrong. Please email us directly at ash@codio.co.in.' };
   }
 }
