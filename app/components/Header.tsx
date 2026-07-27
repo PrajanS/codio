@@ -75,9 +75,8 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3 max-md:hidden">
-          <span className="live">Open · 2 slots free</span>
           <MagneticButton href="/contact" className="btn btn-primary">
-            Apply for a slot
+            Book a call
           </MagneticButton>
         </div>
 
@@ -146,8 +145,7 @@ export default function Header() {
               transform: open ? 'translateY(0)' : 'translateY(14px)',
             }}
           >
-            <span className="live mb-4 block">Open · 2 slots free</span>
-            <Link href="/contact" className="btn btn-primary w-full justify-center">Apply for a slot</Link>
+            <Link href="/contact" className="btn btn-primary w-full justify-center">Book a call</Link>
           </div>
         </div>
       </div>

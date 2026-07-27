@@ -91,7 +91,7 @@ export default function HomePage() {
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <MagneticButton href="/contact" className="btn btn-primary">
-                  Apply for a slot
+                  Book a call
                 </MagneticButton>
                 <Link href="/services" className="btn">See what we build</Link>
               </div>
@@ -179,7 +179,7 @@ export default function HomePage() {
 
         <div className="mt-10 flex items-baseline justify-between">
           <span className="mono ink-mute">1 taken · 2 open</span>
-          <Link href="/contact" className="btn">Apply for a slot</Link>
+          <Link href="/contact" className="btn">Book a call</Link>
         </div>
       </section>
 
@@ -344,7 +344,7 @@ export default function HomePage() {
               </div>
               <div className="col-span-12 md:col-span-4 md:text-right">
                 <MagneticButton href="/contact" className="btn btn-signal">
-                  Apply for a slot
+                  Book a call
                 </MagneticButton>
                 <p className="mono mt-6" style={{ color: 'var(--color-paper-faint)' }}>
                   ash@codio.co.in · reply within 24h

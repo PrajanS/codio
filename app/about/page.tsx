@@ -195,7 +195,7 @@ export default function AboutPage() {
             </div>
             <div className="col-span-12 md:col-span-4 md:text-right">
               <MagneticButton href="/contact" className="btn btn-primary">
-                Apply for a slot
+                Book a call
               </MagneticButton>
               <p className="mono ink-mute mt-6">We reply within one working day</p>
             </div>
