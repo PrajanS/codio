@@ -72,7 +72,7 @@ export default function SelectedWork() {
             <Reveal
               key={p.title}
               as="li"
-              className={`col-span-6 md:col-span-3 ${i === 1 || i === 3 ? 'md:translate-y-7' : ''}`}
+              className="col-span-6 md:col-span-3"
               delay={i * 90}
             >
               <Link

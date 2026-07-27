@@ -15,7 +15,9 @@ export default function StatCounter({ target, suffix = '', duration = 1600, deci
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || !('IntersectionObserver' in window)) {
+    const reduced = typeof window.matchMedia === 'function'
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!el || reduced || !('IntersectionObserver' in window)) {
       setValue(target);
       return;
     }
