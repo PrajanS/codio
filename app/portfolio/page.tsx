@@ -107,7 +107,15 @@ function ProjectRow({ p, delay }: { p: Project; delay: number }) {
               {kindLabel}
             </span>
           </div>
-          <div className="mono ink-mute mt-1.5">{p.client} · {p.discipline}</div>
+          <div className="flex items-center gap-2 mt-1.5">
+            {p.client === 'Hitagyana' ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src="/hitagyana-logo.svg" alt="Hitagyana" className="h-5 w-auto" />
+            ) : (
+              <span className="mono ink-mute">{p.client}</span>
+            )}
+            <span className="mono ink-mute">· {p.discipline}</span>
+          </div>
           <p className="text-base ink-mute leading-relaxed mt-3 max-w-[62ch]">{p.body}</p>
         </div>
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Reveal from '../components/Reveal';
 import WordReveal from '../components/WordReveal';
 import ContactForm from '../components/ContactForm';
-import { IconMail, IconPin, IconClock } from '../components/Icon';
+import { IconMail, IconPhone, IconPin, IconClock } from '../components/Icon';
 
 export const metadata: Metadata = {
   title: 'Contact — Start a project',
@@ -14,6 +14,7 @@ const GMAIL_COMPOSE = 'https://mail.google.com/mail/?view=cm&fs=1&to=ash@codio.c
 
 const LINES = [
   { icon: <IconMail size={16} />, label: 'Email', value: 'ash@codio.co.in', href: GMAIL_COMPOSE, external: true },
+  { icon: <IconPhone size={16} />, label: 'Phone', value: '+91 88706 67038', href: 'tel:+918870667038', external: false },
   { icon: <IconPin size={16} />, label: 'Location', value: 'Remote-first · global', external: false },
   { icon: <IconClock size={16} />, label: 'Hours', value: 'Mon — Fri · 09 — 18 IST', external: false },
 ];
