@@ -15,8 +15,8 @@
   /* Ink — deep blue-black, never #000 */
   --color-ink: oklch(0.18 0.018 260);
   --color-ink-2: oklch(0.34 0.014 260);
-  --color-ink-mute: oklch(0.52 0.012 260);
-  --color-ink-faint: oklch(0.72 0.008 260);
+  --color-ink-mute: oklch(0.50 0.013 260);
+  --color-ink-faint: oklch(0.60 0.011 260);
 
   /* Single committed accent — sharp signal-green */
   --color-signal: oklch(0.82 0.205 135);
@@ -474,7 +474,8 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
 .field-line:focus-within {
   border-color: var(--color-ink);
 }
-.field-line label {
+.field-line label,
+.field-legend {
   display: block;
   font-family: var(--font-mono);
   font-size: 0.66rem;

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Reveal from '../components/Reveal';
 import WordReveal from '../components/WordReveal';
 import ContactForm from '../components/ContactForm';
-import { IconMail, IconPin, IconClock } from '../components/Icon';
+import { IconMail, IconPhone, IconPin, IconClock } from '../components/Icon';
 
 export const metadata: Metadata = {
   title: 'Contact — Start a project',
@@ -14,6 +14,7 @@ const GMAIL_COMPOSE = 'https://mail.google.com/mail/?view=cm&fs=1&to=ash@codio.c
 
 const LINES = [
   { icon: <IconMail size={16} />, label: 'Email', value: 'ash@codio.co.in', href: GMAIL_COMPOSE, external: true },
+  { icon: <IconPhone size={16} />, label: 'Phone', value: '+91 88706 67038', href: 'tel:+918870667038', external: false },
   { icon: <IconPin size={16} />, label: 'Location', value: 'Remote-first · global', external: false },
   { icon: <IconClock size={16} />, label: 'Hours', value: 'Mon — Fri · 09 — 18 IST', external: false },
 ];
@@ -116,7 +117,7 @@ export default function ContactPage() {
             <Reveal>
               <div className="flex items-baseline gap-4 hairline-b pb-3 mb-8">
                 <span className="index">Project details</span>
-                <span className="mono ink-faint">— 4 fields</span>
+                <span className="mono ink-faint">— 3 required</span>
               </div>
               <ContactForm />
             </Reveal>
@@ -137,11 +138,11 @@ export default function ContactPage() {
           {FAQS.map((f, i) => (
             <Reveal
               key={f.q}
-              className={`col-span-12 md:col-span-6 ${i % 2 === 1 ? 'md:translate-y-10' : ''}`}
+              className="col-span-12 md:col-span-6"
               delay={i * 80}
             >
               <details className="hairline-b py-6 group">
-                <summary className="flex items-baseline justify-between cursor-none list-none">
+                <summary className="flex items-baseline justify-between cursor-pointer list-none">
                   <h3 className="font-display text-2xl leading-tight tracking-tight" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
                     {f.q}
                   </h3>

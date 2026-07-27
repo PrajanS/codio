@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import MagneticButton from './MagneticButton';
 import BrandMark from './BrandMark';
 import Wordmark from './Wordmark';
@@ -19,6 +19,7 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const drawerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -32,6 +33,15 @@ export default function Header() {
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
+  // Close on Escape and move focus into the drawer's first link when it opens.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    window.addEventListener('keydown', onKey);
+    drawerRef.current?.querySelector<HTMLElement>('a, button')?.focus();
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
   useEffect(() => { setOpen(false); }, [pathname]);
 
   return (
@@ -42,7 +52,7 @@ export default function Header() {
           : 'md:bg-transparent md:backdrop-blur-none md:border-transparent'
       }`}
     >
-      <div className="frame flex items-center justify-between py-4">
+      <div className="frame relative z-50 flex items-center justify-between py-4">
         <Link href="/" aria-label="Codio — home" className="group inline-flex items-center gap-2.5">
           <BrandMark size={22} className="ink" />
           <Wordmark size={1.5} studio />
@@ -77,13 +87,15 @@ export default function Header() {
           aria-label="Toggle menu"
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="hidden max-md:inline-grid place-items-center w-11 h-11 border border-[var(--color-ink)] bg-[var(--color-paper)]"
+          className="hidden max-md:block relative w-11 h-11 border border-[var(--color-ink)] bg-[var(--color-paper)]"
         >
           <span
-            className={`block w-5 h-px bg-[var(--color-ink)] transition-transform duration-300 ${open ? 'translate-y-[3px] rotate-45' : '-translate-y-1'}`}
+            aria-hidden="true"
+            className={`absolute left-1/2 top-1/2 w-5 h-px -translate-x-1/2 bg-[var(--color-ink)] transition-transform duration-300 ${open ? 'rotate-45' : '-translate-y-[4px]'}`}
           />
           <span
-            className={`block w-5 h-px bg-[var(--color-ink)] mt-1 transition-transform duration-300 ${open ? '-translate-y-[3px] -rotate-45' : 'translate-y-1'}`}
+            aria-hidden="true"
+            className={`absolute left-1/2 top-1/2 w-5 h-px -translate-x-1/2 bg-[var(--color-ink)] transition-transform duration-300 ${open ? '-rotate-45' : 'translate-y-[4px]'}`}
           />
         </button>
       </div>
@@ -91,10 +103,12 @@ export default function Header() {
       {/* Mobile drawer */}
       <div
         id="mobile-nav"
+        ref={drawerRef}
         className={`md:hidden fixed inset-0 top-[64px] bg-[var(--color-paper)] z-30 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
         aria-hidden={!open}
+        inert={!open}
       >
         <div className="frame pt-12 pb-16 h-full flex flex-col">
           <ul className="list-none p-0 space-y-1 flex-1">
