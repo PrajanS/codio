@@ -122,10 +122,10 @@ export default function ContactForm() {
       </fieldset>
 
       {/* Timing pills */}
-      <fieldset className="field-line hairline-b">
-        <label>05 — timeline</label>
+      <fieldset className="field-line hairline-b" aria-label="Timeline">
+        <span className="field-legend">05 — timeline</span>
         <input type="hidden" name="timing" value={timing} />
-        <div className="flex flex-wrap gap-2 pt-2">
+        <div role="group" aria-label="Timeline" className="flex flex-wrap gap-2 pt-2">
           {TIMING.map((t) => {
             const active = timing === t;
             return (

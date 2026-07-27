@@ -474,7 +474,8 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
 .field-line:focus-within {
   border-color: var(--color-ink);
 }
-.field-line label {
+.field-line label,
+.field-legend {
   display: block;
   font-family: var(--font-mono);
   font-size: 0.66rem;

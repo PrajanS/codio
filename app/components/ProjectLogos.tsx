@@ -9,9 +9,9 @@ import type { SVGProps } from 'react';
 
 type LogoProps = SVGProps<SVGSVGElement> & { size?: number };
 
-const baseProps = (p: LogoProps) => ({
-  width: p.size ?? 140,
-  height: p.size ?? 140,
+const baseProps = ({ size, ...p }: LogoProps) => ({
+  width: size ?? 140,
+  height: size ?? 140,
   viewBox: '0 0 120 120',
   fill: 'none',
   stroke: 'currentColor',

@@ -2,9 +2,8 @@ import Link from 'next/link';
 import Marquee from './Marquee';
 
 const SERVICES = [
-  { href: '/services#web', label: 'Web' },
-  { href: '/services#mobile', label: 'Mobile' },
-  { href: '/services#cloud', label: 'Cloud' },
+  { href: '/services#web', label: 'Web Platforms' },
+  { href: '/services#mobile', label: 'Mobile Applications' },
   { href: '/services#design', label: 'Product Design' },
 ];
 

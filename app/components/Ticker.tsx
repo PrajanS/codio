@@ -33,7 +33,7 @@ export default function Ticker() {
   const full = [...ITEMS, time || 'IST —— ——'];
 
   return (
-    <div className="ticker">
+    <div className="ticker" aria-hidden="true">
       <div className="ticker-track">
         {Array.from({ length: 2 }).map((_, copy) => (
           <span key={copy} className="inline-flex items-center gap-[2.4rem]">

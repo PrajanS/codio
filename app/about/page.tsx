@@ -160,16 +160,16 @@ export default function AboutPage() {
         <div className="grid grid-cols-12 gap-x-6 gap-y-2">
           {TEAM.map((p, i) => (
             <Reveal key={p.initials} className="col-span-12 md:col-span-6" delay={i * 80}>
-              <article className="hairline-b py-8 grid grid-cols-[88px_1fr_auto] gap-6 items-baseline group">
-                <div className="font-display text-[3.4rem] leading-none tracking-tight ink-faint group-hover:signal group-hover:italic transition-colors duration-300" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
+              <article className="hairline-b py-8 grid grid-cols-[64px_1fr] md:grid-cols-[88px_1fr_auto] gap-x-5 gap-y-3 md:gap-6 items-baseline group">
+                <div className="font-display text-[2.6rem] md:text-[3.4rem] leading-none tracking-tight ink-faint group-hover:signal group-hover:italic transition-colors duration-300" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
                   {p.initials}
                 </div>
-                <div>
+                <div className="min-w-0">
                   <h4 className="font-display text-2xl leading-tight tracking-tight" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>{p.title}</h4>
                   <div className="mono ink-mute mt-1">{p.role}</div>
                   <p className="text-sm ink-mute mt-3 max-w-[42ch] leading-relaxed">{p.bio}</p>
                 </div>
-                <div className="mono ink-faint text-right">{p.tag}</div>
+                <div className="col-span-2 md:col-span-1 pl-[calc(64px+1.25rem)] md:pl-0 mono ink-faint md:text-right">{p.tag}</div>
               </article>
             </Reveal>
           ))}

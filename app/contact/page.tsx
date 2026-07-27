@@ -141,7 +141,7 @@ export default function ContactPage() {
               delay={i * 80}
             >
               <details className="hairline-b py-6 group">
-                <summary className="flex items-baseline justify-between cursor-none list-none">
+                <summary className="flex items-baseline justify-between cursor-pointer list-none">
                   <h3 className="font-display text-2xl leading-tight tracking-tight" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
                     {f.q}
                   </h3>

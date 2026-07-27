@@ -2,9 +2,9 @@ import type { SVGProps } from 'react';
 
 type IconProps = SVGProps<SVGSVGElement> & { size?: number };
 
-const base = (p: IconProps) => ({
-  width: p.size ?? 22,
-  height: p.size ?? 22,
+const base = ({ size, ...p }: IconProps) => ({
+  width: size ?? 22,
+  height: size ?? 22,
   viewBox: '0 0 24 24',
   fill: 'none',
   stroke: 'currentColor',
