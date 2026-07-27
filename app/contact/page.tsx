@@ -116,7 +116,7 @@ export default function ContactPage() {
             <Reveal>
               <div className="flex items-baseline gap-4 hairline-b pb-3 mb-8">
                 <span className="index">Project details</span>
-                <span className="mono ink-faint">— 4 fields</span>
+                <span className="mono ink-faint">— 3 required</span>
               </div>
               <ContactForm />
             </Reveal>

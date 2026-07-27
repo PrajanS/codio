@@ -1,9 +1,14 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import { processContactRequest } from '../contact/handler';
 
 type Status = { kind: 'idle' | 'success' | 'error'; message?: string };
+
+// Web3Forms' free plan only accepts submissions from the client (browser).
+// The access key is meant to be public, so it ships as a NEXT_PUBLIC_* var.
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+const CONTACT_FALLBACK = 'Please email us directly at ash@codio.co.in.';
 
 const TIMING = ['As soon as possible', 'Within 30 days', '1 — 3 months', '3 — 6 months', '6 months or later'];
 
@@ -35,6 +40,11 @@ export default function ContactForm() {
         errors[name] = true;
       }
     }
+    // Phone is optional, but validate the format when it is provided.
+    const phone = (form.elements.namedItem('phone') as HTMLInputElement | null)?.value?.trim();
+    if (phone && (!/^[+()\-\s\d]{7,20}$/.test(phone) || (phone.match(/\d/g) || []).length < 7)) {
+      errors.phone = true;
+    }
     setInvalid(errors);
     return Object.keys(errors).length === 0;
   };
@@ -55,23 +65,43 @@ export default function ContactForm() {
       setStatus({ kind: 'error', message: 'Please fix the highlighted fields.' });
       return;
     }
+    if (!ACCESS_KEY || ACCESS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY') {
+      setStatus({ kind: 'error', message: `The contact form is not configured yet. ${CONTACT_FALLBACK}` });
+      return;
+    }
     setSending(true);
     setStatus({ kind: 'idle' });
     try {
-      const data = new FormData(form);
-      const result = await processContactRequest(data);
-      if (result.success) {
-        setStatus({ kind: 'success', message: result.message });
+      // Submit as multipart FormData (a CORS-simple request). Sending JSON
+      // would trigger a preflight that Web3Forms' free endpoint rejects.
+      const fd = new FormData(form);
+      fd.append('access_key', ACCESS_KEY);
+      fd.append('subject', `New project enquiry — ${String(fd.get('name') || '').trim() || 'Codio website'}`);
+      fd.append('from_name', 'Codio Website');
+      const email = String(fd.get('email') || '').trim();
+      if (email) fd.append('replyto', email); // replies go straight to the sender
+
+      const res = await fetch(WEB3FORMS_ENDPOINT, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: fd,
+      });
+
+      // Web3Forms returns 200 (an HTML success page) on delivery and a JSON
+      // body only on errors — so use the status, not the response body.
+      if (res.ok) {
+        setStatus({ kind: 'success', message: "Thanks — we'll get back to you within one business day." });
         form.reset();
         setBudget(50000);
         setTiming('');
       } else {
-        setStatus({ kind: 'error', message: result.message });
+        const data = await res.json().catch(() => ({} as { message?: string }));
+        setStatus({ kind: 'error', message: data.message || `Submission failed. ${CONTACT_FALLBACK}` });
       }
     } catch {
       setStatus({
         kind: 'error',
-        message: 'Something went wrong. Please email ash@codio.co.in directly.',
+        message: `Something went wrong. ${CONTACT_FALLBACK}`,
       });
     } finally {
       setSending(false);
@@ -85,11 +115,14 @@ export default function ContactForm() {
         <Line name="email" type="email" label="02 — your email" placeholder="you@company.com" invalid={!!invalid.email} onValueChange={() => clearError('email')} required />
       </div>
 
-      <Line name="company" label="03 — company (optional)" placeholder="Your company" />
+      <div className="grid grid-cols-2 gap-x-8 gap-y-1 max-sm:grid-cols-1">
+        <Line name="phone" type="tel" label="03 — phone (optional)" placeholder="+91 90000 00000" invalid={!!invalid.phone} onValueChange={() => clearError('phone')} />
+        <Line name="company" label="04 — company (optional)" placeholder="Your company" />
+      </div>
 
       {/* Budget — scrolling scale, ₹10k → ₹2L in steps of ₹10k */}
       <fieldset className="field-line hairline-b">
-        <label htmlFor="budget-range">04 — budget</label>
+        <label htmlFor="budget-range">05 — budget</label>
         <input type="hidden" name="budget" value={`${formatINR(budget)} (${formatL(budget)})`} />
         <div className="flex items-baseline justify-between pt-2 mb-3">
           <span
@@ -123,7 +156,7 @@ export default function ContactForm() {
 
       {/* Timing pills */}
       <fieldset className="field-line hairline-b" aria-label="Timeline">
-        <span className="field-legend">05 — timeline</span>
+        <span className="field-legend">06 — timeline</span>
         <input type="hidden" name="timing" value={timing} />
         <div role="group" aria-label="Timeline" className="flex flex-wrap gap-2 pt-2">
           {TIMING.map((t) => {
@@ -147,7 +180,7 @@ export default function ContactForm() {
       </fieldset>
 
       <div className={`field-line ${invalid.message ? 'invalid' : ''}`}>
-        <label htmlFor="message">06 — about your project *</label>
+        <label htmlFor="message">07 — about your project *</label>
         <textarea
           id="message"
           name="message"
@@ -213,7 +246,8 @@ function Line({
         required={required}
         placeholder={placeholder}
         onChange={onValueChange}
-        autoComplete={name === 'email' ? 'email' : name === 'name' ? 'name' : 'organization'}
+        inputMode={type === 'tel' ? 'tel' : undefined}
+        autoComplete={name === 'email' ? 'email' : name === 'name' ? 'name' : name === 'phone' ? 'tel' : 'organization'}
       />
     </div>
   );
