@@ -137,7 +137,7 @@ export default function ContactPage() {
           {FAQS.map((f, i) => (
             <Reveal
               key={f.q}
-              className={`col-span-12 md:col-span-6 ${i % 2 === 1 ? 'md:translate-y-10' : ''}`}
+              className="col-span-12 md:col-span-6"
               delay={i * 80}
             >
               <details className="hairline-b py-6 group">

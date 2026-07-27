@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Marquee from './Marquee';
 
 const SERVICES = [
   { href: '/services#web', label: 'Web Platforms' },
@@ -22,22 +21,19 @@ const NETWORK = [
 export default function Footer() {
   return (
     <footer className="mt-32 bg-ink text-[var(--color-paper)]">
-      {/* Big mark marquee */}
-      <div className="border-y border-[color:var(--color-paper)]/15 py-8">
-        <Marquee speed={88} className="text-[var(--color-paper)]">
-          <span className="font-display italic text-[clamp(4rem,12vw,12rem)] leading-none tracking-[-0.04em] mr-12" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
-            let&apos;s build something
-          </span>
-          <span className="font-display text-[clamp(4rem,12vw,12rem)] leading-none tracking-[-0.04em] mr-12" style={{ color: 'var(--color-signal)', fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
-            worth keeping —
-          </span>
-          <span className="font-display italic text-[clamp(4rem,12vw,12rem)] leading-none tracking-[-0.04em] mr-12" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
-            let&apos;s build something
-          </span>
-          <span className="font-display text-[clamp(4rem,12vw,12rem)] leading-none tracking-[-0.04em] mr-12" style={{ color: 'var(--color-signal)', fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
-            worth keeping —
-          </span>
-        </Marquee>
+      {/* Static closing headline */}
+      <div className="border-b border-[color:var(--color-paper)]/15">
+        <div className="frame py-16 max-md:py-12">
+          <h2
+            className="font-display text-[clamp(2.4rem,1.4rem+4vw,6rem)] leading-[0.98] tracking-[-0.03em]"
+            style={{ color: 'var(--color-paper)', fontVariationSettings: '"opsz" 144, "SOFT" 40' }}
+          >
+            Let&apos;s build something{' '}
+            <em className="italic" style={{ color: 'var(--color-signal)', fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
+              worth keeping.
+            </em>
+          </h2>
+        </div>
       </div>
 
       <div className="frame pt-20 pb-10">

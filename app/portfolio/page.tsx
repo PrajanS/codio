@@ -27,7 +27,7 @@ type Project = {
   discipline: string;
   body: string;
   stack: string;
-  repo: string;
+  year: string;
   kind: Kind;
   Logo: LogoComponent;
 };
@@ -40,7 +40,7 @@ const PROJECTS: Project[] = [
     discipline: 'College search & discovery',
     body: 'A college discovery app — students search, filter, and compare colleges across India, backed by cloud data and shipped to Android.',
     stack: 'Flutter · Firebase · Dart',
-    repo: 'https://github.com/Raghu1700/hitagyana_clg_finder',
+    year: '2025',
     kind: 'app',
     Logo: LogoCollegeFinder,
   },
@@ -51,7 +51,7 @@ const PROJECTS: Project[] = [
     discipline: 'Campus marketplace',
     body: 'A campus book marketplace — students buy and sell textbooks with Firebase auth, listings, a bidding system, favourites, and profiles.',
     stack: 'Flutter · Firebase · Dart',
-    repo: 'https://github.com/Raghu1700/Stusents_book_exchange',
+    year: '2025',
     kind: 'app',
     Logo: LogoBookExchange,
   },
@@ -62,7 +62,7 @@ const PROJECTS: Project[] = [
     discipline: 'Gym management dashboard',
     body: 'A full-stack gym management dashboard — members, workout and diet plans, attendance, payments, and role-based access with audit trails.',
     stack: 'React · TypeScript · Node · PostgreSQL',
-    repo: 'https://github.com/Sanjaykumar-2005/FitCore',
+    year: '2025',
     kind: 'web',
     Logo: LogoFitCore,
   },
@@ -71,73 +71,50 @@ const PROJECTS: Project[] = [
     title: 'FanikClean',
     client: 'Independent build',
     discipline: 'Workforce & billing system',
-    body: 'A workforce and billing system for a cleaning-services business — worker attendance, payroll, leave, client sites, invoicing, and financial reporting on a custom PHP MVC framework.',
+    body: 'A workforce and billing system for a cleaning-services business — attendance, payroll, leave, client sites, invoicing, and financial reporting on a custom PHP MVC framework.',
     stack: 'PHP · MVC · MySQL',
-    repo: 'https://github.com/Sanjaykumar-2005/Fanikclean_development',
+    year: '2025',
     kind: 'web',
     Logo: LogoFanikClean,
   },
 ];
 
-function ProjectCard({ p, delay, offset }: { p: Project; delay: number; offset?: boolean }) {
+function ProjectRow({ p, delay }: { p: Project; delay: number }) {
   const KindIcon = p.kind === 'app' ? IconMobile : IconGlobe;
   const kindLabel = p.kind === 'app' ? 'Mobile app' : 'Web app';
   return (
-    <Reveal
-      className={`col-span-12 md:col-span-6 ${offset ? 'md:translate-y-16' : ''}`}
-      delay={delay}
-    >
-      <article className="group">
-        {/* Logo slot — large, no overlapping badges. The custom SVG sits
-            on the warm paper-2 background; on hover it tilts toward
-            signal-green to acknowledge the cursor. */}
-        <a
-          href={p.repo}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${p.title} — view repository`}
-          className="slot aspect-[4/3] mb-6 grid place-items-center relative overflow-hidden"
-        >
-          <span className="slot-tag">{p.discipline}</span>
-          <span className="ink group-hover:signal transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-            <p.Logo size={180} />
-          </span>
-        </a>
+    <Reveal as="li" delay={delay}>
+      <article className="grid grid-cols-[auto_1fr] md:grid-cols-[3.5rem_auto_1fr_10rem] items-baseline gap-x-6 gap-y-4 py-9 border-b border-[var(--color-rule)]">
+        {/* Index */}
+        <span className="mono ink-faint self-start pt-1">{p.n}</span>
 
-        {/* Single meta row — index + kind on the left, live state on the right.
-            Keeps each card to a predictable rhythm. */}
-        <div className="flex items-baseline justify-between mono mb-4">
-          <span className="ink-faint inline-flex items-baseline gap-2">
-            <span>{p.n}</span>
-            <span className="ink-mute inline-flex items-center gap-1.5">
+        {/* Logo — small, decorative */}
+        <span className="ink hidden md:inline-flex self-start">
+          <p.Logo size={56} />
+        </span>
+
+        {/* Title + client + description */}
+        <div className="min-w-0">
+          <div className="flex items-baseline gap-3 flex-wrap">
+            <h2
+              className="font-display text-[clamp(1.7rem,1.1rem+1.4vw,2.6rem)] leading-[1.05] tracking-tight"
+              style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}
+            >
+              {p.title}
+            </h2>
+            <span className="mono ink-mute inline-flex items-center gap-1.5 text-[0.7rem]">
               <KindIcon size={12} />
               {kindLabel}
             </span>
-          </span>
-          <span className="signal">Live</span>
+          </div>
+          <div className="mono ink-mute mt-1.5">{p.client} · {p.discipline}</div>
+          <p className="text-base ink-mute leading-relaxed mt-3 max-w-[62ch]">{p.body}</p>
         </div>
 
-        {/* Title block */}
-        <h3
-          className="font-display text-[clamp(1.9rem,1.1rem+1.6vw,3rem)] leading-[1.02] tracking-tight"
-          style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}
-        >
-          {p.title}
-        </h3>
-        <div className="mono ink-mute mt-1 mb-4">{p.client}</div>
-
-        <p className="text-base ink-mute leading-relaxed mb-4 max-w-[58ch]">{p.body}</p>
-        <p className="mono ink-faint mb-6">{p.stack}</p>
-
-        <div className="hairline pt-5">
-          <a
-            href={p.repo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="u-link mono ink"
-          >
-            View on GitHub ↗
-          </a>
+        {/* Meta — stack + year (right rail on desktop, inline on mobile) */}
+        <div className="col-start-2 md:col-start-4 md:text-right">
+          <div className="mono ink-faint leading-relaxed">{p.stack}</div>
+          <div className="mono ink-faint mt-1">{p.year}</div>
         </div>
       </article>
     </Reveal>
@@ -181,9 +158,9 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* ============ UNIFIED PROJECT GRID ============ */}
+      {/* ============ PROJECT LIST ============ */}
       <section className="frame pb-24">
-        <div className="hairline-b pb-3 mb-12 flex items-baseline justify-between flex-wrap gap-4">
+        <div className="hairline-b pb-3 mb-4 flex items-baseline justify-between flex-wrap gap-4">
           <div className="flex items-baseline gap-6 flex-wrap">
             <span className="index">Shipped projects</span>
             <span className="mono ink-mute">live, in production</span>
@@ -191,11 +168,11 @@ export default function PortfolioPage() {
           <span className="mono ink-faint">{PROJECTS.length} products</span>
         </div>
 
-        <div className="grid grid-cols-12 gap-x-6 gap-y-20">
+        <ul className="list-none p-0 border-t border-[var(--color-rule)]">
           {PROJECTS.map((p, i) => (
-            <ProjectCard key={p.repo} p={p} delay={i * 80} offset={i % 2 === 1} />
+            <ProjectRow key={p.title} p={p} delay={i * 70} />
           ))}
-        </div>
+        </ul>
       </section>
 
       {/* ============ CTA ============ */}

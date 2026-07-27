@@ -4,7 +4,6 @@ import Reveal from './components/Reveal';
 import WordReveal from './components/WordReveal';
 import MagneticButton from './components/MagneticButton';
 import LogoMarquee from './components/LogoMarquee';
-import Marquee from './components/Marquee';
 import ImpactStrip from './components/ImpactStrip';
 import SelectedWork from './components/SelectedWork';
 import BrandMark from './components/BrandMark';
@@ -130,30 +129,6 @@ export default function HomePage() {
       {/* ============ IMPACT STRIP — proof of delivery before any pitch ============ */}
       <ImpactStrip />
 
-      {/* ============ KINETIC HEADLINE STRIP ============ */}
-      <section aria-hidden="true" className="py-6 border-y border-[var(--color-rule)] bg-paper-2">
-        <Marquee speed={68} className="marquee-display">
-          <span className="font-display text-[clamp(3rem,8vw,8rem)] leading-none tracking-[-0.04em] mr-12" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
-            Senior engineers
-          </span>
-          <span className="font-display italic text-[clamp(3rem,8vw,8rem)] leading-none tracking-[-0.04em] mr-12 signal" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
-            end&nbsp;to&nbsp;end
-          </span>
-          <span className="font-display text-[clamp(3rem,8vw,8rem)] leading-none tracking-[-0.04em] mr-12">
-            ·
-          </span>
-          <span className="font-display text-[clamp(3rem,8vw,8rem)] leading-none tracking-[-0.04em] mr-12" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
-            web · mobile · cloud
-          </span>
-          <span className="font-display italic text-[clamp(3rem,8vw,8rem)] leading-none tracking-[-0.04em] mr-12 signal" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
-            released&nbsp;every&nbsp;friday
-          </span>
-          <span className="font-display text-[clamp(3rem,8vw,8rem)] leading-none tracking-[-0.04em] mr-12">
-            ·
-          </span>
-        </Marquee>
-      </section>
-
       {/* ============ STACK ============ */}
       <section className="py-16 max-md:py-10">
         <div className="frame">
@@ -184,7 +159,7 @@ export default function HomePage() {
           {COHORT.map((c, i) => (
             <Reveal
               key={c.n}
-              className={`col-span-12 md:col-span-4 ${i === 1 ? 'md:translate-y-10' : ''}`}
+              className="col-span-12 md:col-span-4"
               delay={i * 100}
             >
               <article className="hairline-b pb-10 h-full">
@@ -283,7 +258,7 @@ export default function HomePage() {
           {PROCESS.map((p, i) => (
             <Reveal
               key={p.n}
-              className={`col-span-12 md:col-span-6 ${i === 1 ? 'md:translate-y-12' : ''} ${i === 3 ? 'md:translate-y-12' : ''}`}
+              className="col-span-12 md:col-span-6"
               delay={i * 90}
             >
               <article className="hairline-b pb-10">

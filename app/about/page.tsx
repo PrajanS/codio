@@ -126,7 +126,7 @@ export default function AboutPage() {
           {VALUES.map((v, i) => (
             <Reveal
               key={v.n}
-              className={`col-span-12 md:col-span-6 ${i % 2 === 1 ? 'md:translate-y-12' : ''}`}
+              className="col-span-12 md:col-span-6"
               delay={i * 80}
             >
               <article className="hairline-b pb-12">
