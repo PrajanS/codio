@@ -50,9 +50,9 @@ const TEAM = [
   {
     initials: 'AV',
     title: 'Ashwanth V',
-    role: 'Design & Brand',
-    bio: 'Leads design and brand. Turns rough scope into something we are not embarrassed to put a real user in front of. Owns the visual system from logo to last empty state.',
-    tag: 'Figma · Brand · UI',
+    role: 'Project Management',
+    bio: 'Runs the day-to-day of every engagement — scope, timelines, and the line between the team and the client, so nothing slips between reviews.',
+    tag: 'Delivery · Planning · Client',
   },
   {
     initials: 'SM',

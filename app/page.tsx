@@ -24,12 +24,6 @@ const PROCESS = [
   { n: '04', label: 'Support', body: 'Optional monthly retainer. We help with monitoring, performance, and planning the next set of features with your team.' },
 ];
 
-const COHORT = [
-  { n: '01', label: 'In progress', body: 'An engagement is already underway this quarter.' },
-  { n: '02', label: 'Open', body: 'Looking for a web or mobile build with a team that wants senior help from day one.' },
-  { n: '03', label: 'Open', body: 'Looking for a design-led product engagement we can shape end to end.' },
-];
-
 const FOUNDERS = [
   {
     initials: 'PS',
@@ -48,9 +42,9 @@ const FOUNDERS = [
   {
     initials: 'AV',
     name: 'Ashwanth V',
-    role: 'Design & Brand',
-    bio: 'Leads design and brand. Turns rough scope into something we are not embarrassed to put a real user in front of.',
-    tag: 'Figma · Brand · UI',
+    role: 'Project Management',
+    bio: 'Keeps projects moving — owns scope, timelines, and the day-to-day between the team and the client.',
+    tag: 'Delivery · Planning · Client',
   },
   {
     initials: 'SM',
@@ -142,46 +136,6 @@ export default function HomePage() {
 
       {/* ============ SELECTED WORK — visual proof, four custom logo tiles ============ */}
       <SelectedWork />
-
-      {/* ============ FIRST PROJECTS (cohort) ============ */}
-      <section className="frame py-24 max-md:py-16">
-        <div className="grid grid-cols-12 gap-6 items-end hairline-b pb-4 mb-12">
-          <div className="col-span-12 md:col-span-8 flex items-baseline gap-4">
-            <span className="index">First projects</span>
-            <span className="mono ink-faint">/ 03</span>
-          </div>
-          <div className="col-span-12 md:col-span-4 md:text-right mono ink-mute">
-            Now booking · 2026
-          </div>
-        </div>
-
-        <div className="grid grid-cols-12 gap-6">
-          {COHORT.map((c, i) => (
-            <Reveal
-              key={c.n}
-              className="col-span-12 md:col-span-4"
-              delay={i * 100}
-            >
-              <article className="hairline-b pb-10 h-full">
-                <div className="flex items-baseline gap-4 mb-5">
-                  <span className="font-display text-7xl tracking-tight leading-none ink-faint" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
-                    {c.n}
-                  </span>
-                  <h3 className="font-display italic text-3xl tracking-tight leading-none signal" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>
-                    {c.label}
-                  </h3>
-                </div>
-                <p className="text-base ink-mute leading-relaxed">{c.body}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-10 flex items-baseline justify-between">
-          <span className="mono ink-mute">One underway · open for more</span>
-          <Link href="/contact" className="btn">Book a call</Link>
-        </div>
-      </section>
 
       {/* ============ SERVICES SLAB ============ */}
       <section className="frame py-24 max-md:py-16">
