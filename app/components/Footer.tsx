@@ -47,17 +47,17 @@ export default function Footer() {
               Tell us what you&apos;re building.<br />
               <em className="italic" style={{ color: 'var(--color-signal)' }}>We reply within one working day.</em>
             </h2>
-            <div className="space-y-2">
+            <div className="flex flex-col items-start gap-3">
               <a
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=ash@codio.co.in&su=Project%20enquiry"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block font-display text-2xl u-link"
+                className="font-display text-2xl u-link"
                 style={{ color: 'var(--color-paper)' }}
               >
                 ash@codio.co.in
               </a>
-              <Link href="/contact" className="block mono u-link" style={{ color: 'var(--color-paper-mute)' }}>
+              <Link href="/contact" className="mono u-link" style={{ color: 'var(--color-paper-mute)' }}>
                 Book a 30-minute call ↗
               </Link>
             </div>
