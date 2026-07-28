@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 
 type Status = { kind: 'idle' | 'success' | 'error'; message?: string };
 
@@ -28,6 +28,15 @@ export default function ContactForm() {
   const [budget, setBudget] = useState(50000);
   const [timing, setTiming] = useState('');
   const budgetPct = ((budget - BUDGET_MIN) / (BUDGET_MAX - BUDGET_MIN)) * 100;
+
+  // Date/time: force the native calendar/clock picker, block manual typing.
+  const openPicker = (e: { currentTarget: HTMLInputElement }) => {
+    const el = e.currentTarget as HTMLInputElement & { showPicker?: () => void };
+    try { el.showPicker?.(); } catch { /* not supported / not allowed — icon still works */ }
+  };
+  const blockTyping = (e: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Tab') e.preventDefault();
+  };
 
   const validate = (form: HTMLFormElement) => {
     const errors: Record<string, boolean> = {};
@@ -183,11 +192,27 @@ export default function ContactForm() {
         <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1 pt-1">
           <div>
             <label htmlFor="call_date" className="field-sublabel">Date</label>
-            <input id="call_date" name="call_date" type="date" style={{ borderBottom: '1.5px solid var(--color-rule-strong)', paddingBottom: '0.4rem' }} />
+            <input
+              id="call_date"
+              name="call_date"
+              type="date"
+              onKeyDown={blockTyping}
+              onClick={openPicker}
+              onFocus={openPicker}
+              style={{ borderBottom: '1.5px solid var(--color-rule-strong)', paddingBottom: '0.4rem', cursor: 'pointer' }}
+            />
           </div>
           <div>
             <label htmlFor="call_time" className="field-sublabel">Time (IST)</label>
-            <input id="call_time" name="call_time" type="time" style={{ borderBottom: '1.5px solid var(--color-rule-strong)', paddingBottom: '0.4rem' }} />
+            <input
+              id="call_time"
+              name="call_time"
+              type="time"
+              onKeyDown={blockTyping}
+              onClick={openPicker}
+              onFocus={openPicker}
+              style={{ borderBottom: '1.5px solid var(--color-rule-strong)', paddingBottom: '0.4rem', cursor: 'pointer' }}
+            />
           </div>
         </div>
       </fieldset>
