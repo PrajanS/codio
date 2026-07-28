@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react';
+import { useState, type FormEvent } from 'react';
+import DateTimePicker from './DateTimePicker';
 
 type Status = { kind: 'idle' | 'success' | 'error'; message?: string };
 
@@ -9,8 +10,6 @@ type Status = { kind: 'idle' | 'success' | 'error'; message?: string };
 const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 const CONTACT_FALLBACK = 'Please email us directly at ash@codio.co.in.';
-
-const TIMING = ['As soon as possible', 'Within 30 days', '1 — 3 months', '3 — 6 months', '6 months or later'];
 
 const BUDGET_MIN = 10000; // ₹10k
 const BUDGET_MAX = 200000; // ₹2L
@@ -26,17 +25,8 @@ export default function ContactForm() {
   const [invalid, setInvalid] = useState<Record<string, boolean>>({});
   const [sending, setSending] = useState(false);
   const [budget, setBudget] = useState(50000);
-  const [timing, setTiming] = useState('');
+  const [schedKey, setSchedKey] = useState(0); // remount the date/time picker to reset it
   const budgetPct = ((budget - BUDGET_MIN) / (BUDGET_MAX - BUDGET_MIN)) * 100;
-
-  // Date/time: force the native calendar/clock picker, block manual typing.
-  const openPicker = (e: { currentTarget: HTMLInputElement }) => {
-    const el = e.currentTarget as HTMLInputElement & { showPicker?: () => void };
-    try { el.showPicker?.(); } catch { /* not supported / not allowed — icon still works */ }
-  };
-  const blockTyping = (e: ReactKeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== 'Tab') e.preventDefault();
-  };
 
   const validate = (form: HTMLFormElement) => {
     const errors: Record<string, boolean> = {};
@@ -102,7 +92,7 @@ export default function ContactForm() {
         setStatus({ kind: 'success', message: "Thanks — we'll get back to you within one business day." });
         form.reset();
         setBudget(50000);
-        setTiming('');
+        setSchedKey((k) => k + 1);
       } else {
         const data = await res.json().catch(() => ({} as { message?: string }));
         setStatus({ kind: 'error', message: data.message || `Submission failed. ${CONTACT_FALLBACK}` });
@@ -161,64 +151,14 @@ export default function ContactForm() {
         </div>
       </fieldset>
 
-      {/* Timing pills */}
-      <fieldset className="field-line" aria-label="Timeline">
-        <span className="field-legend">06 — timeline</span>
-        <input type="hidden" name="timing" value={timing} />
-        <div role="group" aria-label="Timeline" className="flex flex-wrap gap-2 pt-1">
-          {TIMING.map((t) => {
-            const active = timing === t;
-            return (
-              <button
-                key={t}
-                type="button"
-                onClick={() => setTiming(active ? '' : t)}
-                className={`px-4 py-2 mono text-[0.72rem] border-[1.5px] transition-colors ${
-                  active
-                    ? 'bg-signal border-[var(--color-ink)] ink'
-                    : 'bg-transparent border-[var(--color-rule-strong)] ink-2 hover:ink hover:border-[var(--color-ink)]'
-                }`}
-              >
-                {t}
-              </button>
-            );
-          })}
-        </div>
-      </fieldset>
-
-      {/* Preferred call time — native date + time pickers */}
+      {/* Preferred call time — custom themed calendar + clock */}
       <fieldset className="field-line" aria-label="Preferred call time">
-        <span className="field-legend">07 — preferred call time (optional)</span>
-        <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1 pt-1">
-          <div>
-            <label htmlFor="call_date" className="field-sublabel">Date</label>
-            <input
-              id="call_date"
-              name="call_date"
-              type="date"
-              onKeyDown={blockTyping}
-              onClick={openPicker}
-              onFocus={openPicker}
-              style={{ borderBottom: '1.5px solid var(--color-rule-strong)', paddingBottom: '0.4rem', cursor: 'pointer' }}
-            />
-          </div>
-          <div>
-            <label htmlFor="call_time" className="field-sublabel">Time (IST)</label>
-            <input
-              id="call_time"
-              name="call_time"
-              type="time"
-              onKeyDown={blockTyping}
-              onClick={openPicker}
-              onFocus={openPicker}
-              style={{ borderBottom: '1.5px solid var(--color-rule-strong)', paddingBottom: '0.4rem', cursor: 'pointer' }}
-            />
-          </div>
-        </div>
+        <span className="field-legend">06 — preferred call time (optional)</span>
+        <DateTimePicker key={schedKey} />
       </fieldset>
 
       <div className={`field-line ${invalid.message ? 'invalid' : ''}`}>
-        <label htmlFor="message">08 — about your project *</label>
+        <label htmlFor="message">07 — about your project *</label>
         <textarea
           id="message"
           name="message"
