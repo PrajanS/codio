@@ -27,10 +27,11 @@ export default function ContactForm() {
   const [sending, setSending] = useState(false);
   const [budget, setBudget] = useState(50000);
   const [timing, setTiming] = useState('');
+  const budgetPct = ((budget - BUDGET_MIN) / (BUDGET_MAX - BUDGET_MIN)) * 100;
 
   const validate = (form: HTMLFormElement) => {
     const errors: Record<string, boolean> = {};
-    const required = ['name', 'email', 'message'];
+    const required = ['name', 'email', 'phone', 'message'];
     for (const name of required) {
       const input = form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | null;
       if (!input) continue;
@@ -39,11 +40,10 @@ export default function ContactForm() {
       if (name === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
         errors[name] = true;
       }
-    }
-    // Phone is optional, but validate the format when it is provided.
-    const phone = (form.elements.namedItem('phone') as HTMLInputElement | null)?.value?.trim();
-    if (phone && (!/^[+()\-\s\d]{7,20}$/.test(phone) || (phone.match(/\d/g) || []).length < 7)) {
-      errors.phone = true;
+      // Phone is required; also check the format when a value is present.
+      if (name === 'phone' && value && (!/^[+()\-\s\d]{7,20}$/.test(value) || (value.match(/\d/g) || []).length < 7)) {
+        errors[name] = true;
+      }
     }
     setInvalid(errors);
     return Object.keys(errors).length === 0;
@@ -109,29 +109,29 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-1">
-      <div className="grid grid-cols-2 gap-x-8 gap-y-1 max-sm:grid-cols-1">
+    <form onSubmit={onSubmit} noValidate className="space-y-4">
+      <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
         <Line name="name" label="01 — your name" placeholder="Your full name" invalid={!!invalid.name} onValueChange={() => clearError('name')} required />
         <Line name="email" type="email" label="02 — your email" placeholder="you@company.com" invalid={!!invalid.email} onValueChange={() => clearError('email')} required />
       </div>
 
-      <div className="grid grid-cols-2 gap-x-8 gap-y-1 max-sm:grid-cols-1">
-        <Line name="phone" type="tel" label="03 — phone (optional)" placeholder="+91 90000 00000" invalid={!!invalid.phone} onValueChange={() => clearError('phone')} />
+      <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+        <Line name="phone" type="tel" label="03 — phone" placeholder="+91 90000 00000" invalid={!!invalid.phone} onValueChange={() => clearError('phone')} required />
         <Line name="company" label="04 — company (optional)" placeholder="Your company" />
       </div>
 
-      {/* Budget — scrolling scale, ₹10k → ₹2L in steps of ₹10k */}
-      <fieldset className="field-line hairline-b">
+      {/* Budget — visible filled slider, ₹10k → ₹2L in steps of ₹10k */}
+      <fieldset className="field-line">
         <label htmlFor="budget-range">05 — budget</label>
         <input type="hidden" name="budget" value={`${formatINR(budget)} (${formatL(budget)})`} />
-        <div className="flex items-baseline justify-between pt-2 mb-3">
+        <div className="flex items-baseline justify-between pt-1 mb-3">
           <span
-            className="font-display text-3xl tracking-tight ink"
+            className="font-display text-4xl tracking-tight ink"
             style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}
           >
             {formatINR(budget)}
           </span>
-          <span className="mono signal">{formatL(budget)}</span>
+          <span className="mono signal text-sm">{formatL(budget)}</span>
         </div>
         <input
           id="budget-range"
@@ -143,22 +143,20 @@ export default function ContactForm() {
           onChange={(e) => setBudget(Number(e.target.value))}
           aria-valuetext={formatINR(budget)}
           className="budget-range w-full"
+          style={{ background: `linear-gradient(to right, var(--color-signal-deep) ${budgetPct}%, var(--color-rule-strong) ${budgetPct}%)` }}
         />
-        <div className="flex justify-between mono ink-faint mt-2">
+        <div className="flex justify-between mono ink-mute mt-2 text-[0.7rem]">
           <span>{formatINR(BUDGET_MIN)}</span>
+          <span className="max-sm:hidden">Drag to set · steps of ₹10,000</span>
           <span>{formatINR(BUDGET_MAX)}</span>
         </div>
-        <p className="mt-3 flex items-start gap-2 bg-paper-2 border border-[var(--color-rule)] px-3 py-2 mono ink-mute leading-relaxed">
-          <span aria-hidden="true" className="signal shrink-0">↔</span>
-          <span>Drag the slider to set your budget — in steps of ₹10,000</span>
-        </p>
       </fieldset>
 
       {/* Timing pills */}
-      <fieldset className="field-line hairline-b" aria-label="Timeline">
+      <fieldset className="field-line" aria-label="Timeline">
         <span className="field-legend">06 — timeline</span>
         <input type="hidden" name="timing" value={timing} />
-        <div role="group" aria-label="Timeline" className="flex flex-wrap gap-2 pt-2">
+        <div role="group" aria-label="Timeline" className="flex flex-wrap gap-2 pt-1">
           {TIMING.map((t) => {
             const active = timing === t;
             return (
@@ -166,10 +164,10 @@ export default function ContactForm() {
                 key={t}
                 type="button"
                 onClick={() => setTiming(active ? '' : t)}
-                className={`px-4 py-1.5 mono border transition-colors ${
+                className={`px-4 py-2 mono text-[0.72rem] border-[1.5px] transition-colors ${
                   active
                     ? 'bg-signal border-[var(--color-ink)] ink'
-                    : 'bg-transparent border-[var(--color-rule-strong)] ink-mute hover:ink hover:border-[var(--color-ink)]'
+                    : 'bg-transparent border-[var(--color-rule-strong)] ink-2 hover:ink hover:border-[var(--color-ink)]'
                 }`}
               >
                 {t}
@@ -179,8 +177,23 @@ export default function ContactForm() {
         </div>
       </fieldset>
 
+      {/* Preferred call time — native date + time pickers */}
+      <fieldset className="field-line" aria-label="Preferred call time">
+        <span className="field-legend">07 — preferred call time (optional)</span>
+        <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1 pt-1">
+          <div>
+            <label htmlFor="call_date" className="field-sublabel">Date</label>
+            <input id="call_date" name="call_date" type="date" style={{ borderBottom: '1.5px solid var(--color-rule-strong)', paddingBottom: '0.4rem' }} />
+          </div>
+          <div>
+            <label htmlFor="call_time" className="field-sublabel">Time (IST)</label>
+            <input id="call_time" name="call_time" type="time" style={{ borderBottom: '1.5px solid var(--color-rule-strong)', paddingBottom: '0.4rem' }} />
+          </div>
+        </div>
+      </fieldset>
+
       <div className={`field-line ${invalid.message ? 'invalid' : ''}`}>
-        <label htmlFor="message">07 — about your project *</label>
+        <label htmlFor="message">08 — about your project *</label>
         <textarea
           id="message"
           name="message"
@@ -193,8 +206,8 @@ export default function ContactForm() {
       {/* honeypot */}
       <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" />
 
-      <div className="pt-10 flex flex-wrap items-baseline justify-between gap-6">
-        <button type="submit" className="btn btn-primary" disabled={sending}>
+      <div className="pt-6 flex flex-wrap items-center justify-between gap-6">
+        <button type="submit" className="btn btn-primary text-base px-8 py-4 max-sm:w-full max-sm:justify-center" disabled={sending}>
           {sending ? 'Sending…' : 'Send message'}
         </button>
         <span className="mono ink-mute">We reply within one working day</span>

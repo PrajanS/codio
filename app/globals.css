@@ -464,25 +464,30 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
   animation: blink 1.4s ease-in-out infinite;
 }
 
-/* Form fields — editorial, line-only */
+/* Form fields — boxed, high-contrast, clearly fillable */
 .field-line {
   position: relative;
-  border-bottom: 1px solid var(--color-rule-strong);
-  padding-block: 0.85rem 0.65rem;
-  transition: border-color 240ms var(--ease-out-expo);
+  border: 1.5px solid var(--color-rule-strong);
+  background: var(--color-paper);
+  padding: 0.7rem 0.95rem 0.8rem;
+  transition: border-color 200ms var(--ease-out-expo),
+              box-shadow 200ms var(--ease-out-expo);
 }
+.field-line:hover { border-color: var(--color-ink-mute); }
 .field-line:focus-within {
   border-color: var(--color-ink);
+  box-shadow: 0 0 0 3px oklch(0.82 0.205 135 / 0.30);
 }
-.field-line label,
+.field-line > label,
 .field-legend {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.18em;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-ink-mute);
-  margin-bottom: 0.35rem;
+  color: var(--color-ink-2);
+  margin-bottom: 0.4rem;
 }
 .field-line input,
 .field-line textarea,
@@ -493,6 +498,7 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
   outline: 0;
   font-family: var(--font-sans);
   font-size: 1.05rem;
+  font-weight: 450;
   color: var(--color-ink);
   padding: 0;
 }
@@ -500,13 +506,25 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
 .field-line textarea::placeholder {
   color: var(--color-ink-faint);
 }
-.field-line textarea { resize: vertical; min-height: 120px; line-height: 1.5; }
+.field-line textarea { resize: vertical; min-height: 130px; line-height: 1.5; }
 .field-line.invalid {
   border-color: var(--color-warn);
   background: var(--color-warn-tint);
+  box-shadow: none;
 }
-.field-line.invalid label {
+.field-line.invalid > label,
+.field-line.invalid .field-legend {
   color: var(--color-warn);
+}
+/* Sub-labels (e.g. date / time inside a grouped field) */
+.field-sublabel {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute);
+  margin-bottom: 0.3rem;
 }
 
 /* Magnetic wrapper — child receives transform */
@@ -822,21 +840,24 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 2px;
-  margin: 0.4rem 0;
+  height: 8px;
+  margin: 0.6rem 0;
   background: var(--color-rule-strong);
-  border-radius: 0;
+  border: 1px solid var(--color-rule-strong);
+  border-radius: 999px;
   outline: none;
   cursor: pointer;
 }
 .budget-range::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
+  margin-top: -8px;
   border-radius: 999px;
   background: var(--color-signal);
-  border: 1.5px solid var(--color-ink);
+  border: 2px solid var(--color-ink);
+  box-shadow: 0 1px 3px oklch(0.18 0.018 260 / 0.25);
   transition: transform 220ms var(--ease-out-expo), box-shadow 220ms var(--ease-out-expo);
 }
 .budget-range::-webkit-slider-thumb:hover { transform: scale(1.12); }
@@ -853,17 +874,25 @@ main section p:not(.mono):not([class*="text-xs"]):not([class*="text-sm"]) {
   cursor: pointer;
 }
 .budget-range::-moz-range-track {
-  height: 2px;
+  height: 8px;
+  border-radius: 999px;
   background: var(--color-rule-strong);
+}
+.budget-range::-moz-range-progress {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-signal-deep);
 }
 .budget-range:focus-visible::-webkit-slider-thumb {
   box-shadow: 0 0 0 4px oklch(0.68 0.195 138 / 0.4);
 }
 /* Bigger touch target + taller track on touch devices */
 @media (pointer: coarse) {
-  .budget-range { height: 4px; }
-  .budget-range::-webkit-slider-thumb { width: 28px; height: 28px; }
-  .budget-range::-moz-range-thumb { width: 28px; height: 28px; }
+  .budget-range { height: 10px; }
+  .budget-range::-moz-range-track { height: 10px; }
+  .budget-range::-moz-range-progress { height: 10px; }
+  .budget-range::-webkit-slider-thumb { width: 30px; height: 30px; margin-top: -10px; }
+  .budget-range::-moz-range-thumb { width: 30px; height: 30px; }
 }
 
 /* Image slot — when no image, use kinetic SVG fallback */
