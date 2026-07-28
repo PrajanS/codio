@@ -33,7 +33,7 @@ export default function NotFound() {
             <li className="hairline-b py-3"><Link href="/" className="u-link ink">01 — Index</Link></li>
             <li className="hairline-b py-3"><Link href="/services" className="u-link ink">02 — Services</Link></li>
             <li className="hairline-b py-3"><Link href="/portfolio" className="u-link ink">03 — Work</Link></li>
-            <li className="hairline-b py-3"><Link href="/about" className="u-link ink">04 — Studio</Link></li>
+            <li className="hairline-b py-3"><Link href="/about" className="u-link ink">04 — About</Link></li>
             <li className="hairline-b py-3"><Link href="/contact" className="u-link ink">05 — Contact</Link></li>
           </ul>
         </div>

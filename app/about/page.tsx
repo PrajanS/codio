@@ -4,9 +4,9 @@ import WordReveal from '../components/WordReveal';
 import MagneticButton from '../components/MagneticButton';
 
 export const metadata: Metadata = {
-  title: 'Studio — Four founders, one direct line',
+  title: 'About — Four founders, one direct line',
   description:
-    'Codio is a new senior software studio founded by Prajan S, Raghunanthan VR, Ashwanth V, and Sanjaykumar M. We write the code ourselves. Three project slots open for 2026.',
+    'Codio Systems is a new senior software company founded by Prajan S, Raghunanthan VR, Ashwanth V, and Sanjaykumar M. We write the code ourselves and take on a small number of projects at a time.',
 };
 
 const VALUES = [
@@ -69,7 +69,7 @@ export default function AboutPage() {
       {/* ============ HERO ============ */}
       <section className="frame pt-16 pb-24 max-md:pt-10 max-md:pb-16">
         <div className="flex items-baseline justify-between hairline-b pb-3 mb-12">
-          <span className="mono ink-mute">[ 04 — studio ]</span>
+          <span className="mono ink-mute">[ 04 — company ]</span>
           <span className="mono ink-faint">EST. 2026 · founding year</span>
         </div>
 
@@ -86,7 +86,7 @@ export default function AboutPage() {
           <div className="col-span-12 md:col-span-5 md:col-start-2">
             <Reveal delay={250}>
               <p className="text-lg ink-mute leading-relaxed">
-                Codio is a new senior software studio, started in 2026 by four people who spent the last several years building software inside other companies and shipping side projects of their own. We are staying small on purpose. For our first year, we are taking only three projects so each one gets our full attention.
+                Codio Systems is a new senior software company, started in 2026 by four people who spent the last several years building software inside other companies and shipping side projects of their own. We are staying small on purpose, working with only a few teams at a time so each one gets our full attention.
               </p>
             </Reveal>
           </div>
@@ -104,9 +104,9 @@ export default function AboutPage() {
       <section className="bg-paper-2 hairline hairline-b py-16 max-md:py-10">
         <div className="frame grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
           <Num n="01" v="4" label="Founders on every project" />
-          <Num n="02" v="3" label="Total project slots for 2026" />
-          <Num n="03" v="2" label="Slots still open" />
-          <Num n="04" v="2026" label="Studio founded" />
+          <Num n="02" v="3" label="Service areas we run" />
+          <Num n="03" v="4" label="Products shipped so far" />
+          <Num n="04" v="2026" label="Company founded" />
         </div>
       </section>
 

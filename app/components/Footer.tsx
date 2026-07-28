@@ -7,7 +7,7 @@ const SERVICES = [
 ];
 
 const STUDIO = [
-  { href: '/about', label: 'Studio' },
+  { href: '/about', label: 'About' },
   { href: '/portfolio', label: 'Selected work' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -66,13 +66,13 @@ export default function Footer() {
           {/* Right: index columns */}
           <div className="md:col-span-7 grid grid-cols-3 gap-6 max-sm:grid-cols-1">
             <FCol title="Services" items={SERVICES} />
-            <FCol title="Studio" items={STUDIO} />
+            <FCol title="Company" items={STUDIO} />
             <FCol title="Find us" items={NETWORK} external />
           </div>
         </div>
 
         <div className="mt-24 pt-6 border-t border-[color:var(--color-paper)]/15 flex flex-wrap items-center justify-between gap-3 mono" style={{ color: 'var(--color-paper-faint)' }}>
-          <span>© {new Date().getFullYear()} codio studio</span>
+          <span>© {new Date().getFullYear()} codio systems</span>
           <span>Remote-first · India and worldwide</span>
           <span>v.2026.05 — first projects open</span>
         </div>

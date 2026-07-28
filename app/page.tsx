@@ -25,7 +25,7 @@ const PROCESS = [
 ];
 
 const COHORT = [
-  { n: '01', label: 'Reserved', body: 'First seat is taken. The project starts in July.' },
+  { n: '01', label: 'In progress', body: 'An engagement is already underway this quarter.' },
   { n: '02', label: 'Open', body: 'Looking for a web or mobile build with a team that wants senior help from day one.' },
   { n: '03', label: 'Open', body: 'Looking for a design-led product engagement we can shape end to end.' },
 ];
@@ -70,7 +70,7 @@ export default function HomePage() {
           <div className="col-span-12 flex items-baseline justify-between hairline-b pb-3">
             <span className="mono ink-mute">[ 00 — index ]</span>
             <span className="mono ink-mute hidden md:inline">founding year · 2026</span>
-            <span className="mono ink-faint">EST. Codio Studio</span>
+            <span className="mono ink-faint">EST. Codio Systems</span>
           </div>
 
           <div className="col-span-12">
@@ -87,7 +87,7 @@ export default function HomePage() {
           <div className="col-span-12 md:col-span-5 md:col-start-2 mt-10">
             <Reveal delay={300}>
               <p className="text-lg md:text-xl ink-mute leading-relaxed mb-8">
-                Codio is a new software studio. We are senior engineers and designers starting fresh. For our first year, we are taking on only three projects so each one gets our full attention.
+                Codio Systems is a new software company. We are senior engineers and designers starting fresh, working with a small number of teams at a time so each one gets our full attention.
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <MagneticButton href="/contact" className="btn btn-primary">
@@ -107,11 +107,11 @@ export default function HomePage() {
                 <span className="inline-flex items-center text-[var(--color-ink)]">
                   <BrandMark size={18} blink />
                 </span>
-                <span className="live">Studio status</span>
+                <span className="live">System status</span>
                 <span className="mono ink-faint">— live</span>
               </div>
               <p className="text-base ink leading-relaxed">
-                <em className="italic signal">Three project slots for 2026.</em> One is taken, two are open. After the first call, we send a short one-page plan. No long sales process.
+                <em className="italic signal">Open for new projects in 2026.</em> We take on a small number of engagements at a time. After the first call, we send a short one-page plan. No long sales process.
               </p>
               <div className="mt-8 hairline pt-5 mono ink-mute">
                 Every message is read by the team · we reply within one working day
@@ -151,7 +151,7 @@ export default function HomePage() {
             <span className="mono ink-faint">/ 03</span>
           </div>
           <div className="col-span-12 md:col-span-4 md:text-right mono ink-mute">
-            Three slots · 2026
+            Now booking · 2026
           </div>
         </div>
 
@@ -178,7 +178,7 @@ export default function HomePage() {
         </div>
 
         <div className="mt-10 flex items-baseline justify-between">
-          <span className="mono ink-mute">1 taken · 2 open</span>
+          <span className="mono ink-mute">One underway · open for more</span>
           <Link href="/contact" className="btn">Book a call</Link>
         </div>
       </section>
@@ -236,7 +236,7 @@ export default function HomePage() {
               <p className="text-base ink-mute leading-relaxed">
                 Every Friday you get a new release and a short written update. Every Monday we join your stand-up. That is the full rhythm.
               </p>
-              <Link href="/about" className="btn btn-bare mt-8">Read about the studio</Link>
+              <Link href="/about" className="btn btn-bare mt-8">Read about the company</Link>
             </Reveal>
           </div>
         </div>
@@ -286,7 +286,7 @@ export default function HomePage() {
           </div>
           <div className="col-span-12 md:col-span-4 md:text-right">
             <Link href="/about" className="u-link mono ink inline-flex items-center gap-1.5">
-              Full studio brief
+              Full company brief
               <IconArrow size={12} />
             </Link>
           </div>
@@ -299,10 +299,10 @@ export default function HomePage() {
               <p className="font-display text-[clamp(1.7rem,1.1rem+1.8vw,2.8rem)] text-center leading-[1.18] tracking-[-0.02em]"
                  style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40' }}>
                 <span className="signal font-display italic" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>&ldquo;</span>
-                We spent years building software inside other companies. Codio is the kind of studio we always wanted to hire — small, senior, and honest about scope.
+                We spent years building software inside other companies. Codio is the kind of company we always wanted to hire — small, senior, and honest about scope.
                 <span className="signal font-display italic" style={{ fontVariationSettings: '"opsz" 144, "SOFT" 100' }}>&rdquo;</span>
               </p>
-              <footer className="mt-6 mono ink-mute text-center">— The four founders · Codio Studio</footer>
+              <footer className="mt-6 mono ink-mute text-center">— The four founders · Codio Systems</footer>
             </Reveal>
           </div>
 

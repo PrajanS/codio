@@ -4,8 +4,8 @@ type Props = {
   size?: number;
   className?: string;
   style?: CSSProperties;
-  /** Show ".studio" sub-mark in mono after the wordmark. */
-  studio?: boolean;
+  /** Show the "systems" sub-mark in mono after the wordmark. */
+  systems?: boolean;
   /** Inverted colors (e.g. on dark ink slabs). */
   inverted?: boolean;
 };
@@ -15,7 +15,7 @@ type Props = {
  * Reuses the design system's italic + dot language. Pairs with BrandMark
  * at any size.
  */
-export default function Wordmark({ size = 1.65, className = '', style, studio, inverted }: Props) {
+export default function Wordmark({ size = 1.65, className = '', style, systems, inverted }: Props) {
   const inkColor = inverted ? 'var(--color-paper)' : 'var(--color-ink)';
   return (
     <span
@@ -41,7 +41,7 @@ export default function Wordmark({ size = 1.65, className = '', style, studio, i
       >
         .
       </span>
-      {studio && (
+      {systems && (
         <span
           className="mono"
           style={{
@@ -53,7 +53,7 @@ export default function Wordmark({ size = 1.65, className = '', style, studio, i
             textTransform: 'uppercase',
           }}
         >
-          studio
+          systems
         </span>
       )}
     </span>

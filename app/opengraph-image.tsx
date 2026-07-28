@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'Codio — Engineering studio for software, mobile & cloud';
+export const alt = 'Codio Systems — software, mobile & cloud engineering';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -39,7 +39,7 @@ export default async function OG() {
             textTransform: 'uppercase',
           }}
         >
-          <span>[ codio studio · 2026 ]</span>
+          <span>[ codio systems · 2026 ]</span>
           <span>est. 2026</span>
         </div>
 
@@ -76,7 +76,7 @@ export default async function OG() {
 
         {/* Sub-headline */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, color: INK }}>
-          <div style={{ fontSize: 56, letterSpacing: -2 }}>Engineering studio for</div>
+          <div style={{ fontSize: 56, letterSpacing: -2 }}>Engineering systems for</div>
           <div style={{ fontSize: 56, fontStyle: 'italic', letterSpacing: -2, color: SIGNAL }}>
             software, mobile &amp; cloud.
           </div>
@@ -94,7 +94,7 @@ export default async function OG() {
             textTransform: 'uppercase',
           }}
         >
-          <span>codio.studio</span>
+          <span>codio.co.in</span>
           <span>remote-first · india and worldwide</span>
         </div>
       </div>

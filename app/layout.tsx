@@ -28,17 +28,17 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://codio.studio'),
+  metadataBase: new URL('https://codio.co.in'),
   title: {
-    default: 'Codio — Engineering studio for software, mobile & cloud',
-    template: '%s — Codio',
+    default: 'Codio Systems — software, mobile & cloud engineering',
+    template: '%s — Codio Systems',
   },
   description:
-    'Codio is a small senior software studio. We design, build, and deliver reliable software for teams that need it — web, mobile, and cloud.',
-  keywords: ['software studio', 'web development', 'mobile apps', 'cloud engineering', 'product design'],
-  authors: [{ name: 'Codio' }],
+    'Codio Systems is a small, senior software company. We design, build, and deliver reliable software for teams that need it — web, mobile, and cloud.',
+  keywords: ['software company', 'web development', 'mobile apps', 'cloud engineering', 'product design'],
+  authors: [{ name: 'Codio Systems' }],
   openGraph: {
-    title: 'Codio — Software studio',
+    title: 'Codio Systems — software, mobile & cloud',
     description: 'Senior software engineering from start to finish. Web, mobile, and cloud.',
     type: 'website',
   },

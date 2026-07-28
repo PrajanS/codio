@@ -103,7 +103,7 @@ const ENGAGEMENTS = [
     name: 'Build',
     sub: 'Six to twelve weeks · fixed scope',
     body:
-      'A full production build with weekly demos and Friday releases. Fixed scope and fixed price. Three of these are open as our first project slots for 2026.',
+      'A full production build with weekly demos and Friday releases. Fixed scope and fixed price. This is how our first projects for 2026 are run.',
   },
   {
     n: '03',

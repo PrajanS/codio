@@ -1,5 +1,5 @@
 const ITEMS = [
-  'Open · 2 project slots for 2026',
+  'Open for new projects · 2026',
   'Remote-first · works with teams worldwide',
   'First call to first code · under 14 days',
 ];

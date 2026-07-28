@@ -22,11 +22,11 @@ const LINES = [
 const FAQS = [
   {
     q: 'How fast can you start?',
-    a: 'Usually less than fourteen days from first call to first commit. We have three project slots for 2026 — one is taken, two are still open.',
+    a: 'Usually less than fourteen days from first call to first commit. We take on a small number of projects at a time, and we have room for new work in 2026.',
   },
   {
     q: 'You have no past projects to show. Why should I trust you?',
-    a: "Because the price is honest about that. Our first three projects come with full senior attention, fixed scope, and a special price that will not be offered again. The team has shipped software at scale before — just under a new studio name.",
+    a: "Because the price is honest about that. Our first projects come with full senior attention, fixed scope, and a special price that will not be offered again. The team has shipped software at scale before — just under a new company name.",
   },
   {
     q: 'How much does a project cost?',
@@ -65,7 +65,7 @@ export default function ContactPage() {
           <div className="col-span-12 md:col-span-6 md:col-start-2">
             <Reveal delay={250}>
               <p className="text-lg ink-mute leading-relaxed">
-                One working day. No long sales process. Tell us where you are — only an idea, halfway through a build, or trying to save a project that is in trouble. We will write back with clear next steps, and if your project fits our first three slots, we will say so.
+                One working day. No long sales process. Tell us where you are — only an idea, halfway through a build, or trying to save a project that is in trouble. We will write back with clear next steps, and if it is a fit for us, we will say so.
               </p>
             </Reveal>
           </div>

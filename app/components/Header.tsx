@@ -55,7 +55,7 @@ export default function Header() {
       <div className="frame relative z-50 flex items-center justify-between py-4">
         <Link href="/" aria-label="Codio — home" className="group inline-flex items-center gap-2.5">
           <BrandMark size={22} className="ink" />
-          <Wordmark size={1.5} studio />
+          <Wordmark size={1.5} systems />
         </Link>
 
         <nav className="max-md:hidden">
